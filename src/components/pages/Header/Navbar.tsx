@@ -59,7 +59,7 @@ export default function Navbar() {
                     Old Bikes
                   </li>
                 </Link>
-                <Link href="#">
+                <Link href="/newBikes">
                   <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
                     New Bikes
                   </li>

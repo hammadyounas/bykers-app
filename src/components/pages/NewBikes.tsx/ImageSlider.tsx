@@ -52,34 +52,38 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="relative mx-3 border-2 border-gray-200 bg-white p-2 sm:mx-10 sm:p-10 lg:w-[50%] xl:w-[40%]">
-      <h1 className=" text-base font-bold text-black sm:text-lg lg:text-2xl">
-        Honda CG 125 2024
-      </h1>
-      <div className="flex justify-between">
-        <div>
-          <h4 className="text-red-700">Washington, USA</h4>
-        </div>
-        <div>
-          <i className="fa-regular fa-heart text-lg text-red-600"></i>
-          <i className="fa-regular fa-bookmark ml-2 text-lg text-red-600"></i>
-        </div>
+    <div className="relative mx-3 bg-white p-2 sm:mx-10 sm:p-10 lg:w-[100%]">
+      <div className="mx-auto lg:w-[70%]">
+        <h1 className=" text-base font-semibold text-black sm:text-lg lg:text-2xl">
+          Honda 2024 Pridor Price, Pictures & Specs
+        </h1>
       </div>
-      <Slider ref={sliderRef} {...settings}>
-        {images.map((src, index) => (
-          <div
-            key={index}
-            className="mt-5 h-[55vh] w-full max-[425px]:h-[35vh] sm:h-[55vh]"
-          >
-            <img
-              src={src}
-              alt={`Slide ${index}`}
-              className="size-full object-cover"
-            />
-          </div>
-        ))}
-      </Slider>
-      <div className="mt-5 flex w-full">
+      <div className="mx-auto mt-5 flex border border-gray-300 p-2 max-lg:flex-col sm:p-10 lg:w-[70%]">
+        <div className="sm:mt-10">
+          <h1 className="text-xl font-bold text-red-600 lg:text-2xl">
+            Price $100000
+          </h1>
+          <p className="mt-2 text-xs text-gray-700">
+            21 Used Honda Pridor for Sale
+          </p>
+          <p className="mt-2 text-xs text-gray-700">37 Review | Write Review</p>
+        </div>
+        <div className="ml-auto w-[100%] max-lg:mt-5 lg:w-[50%]">
+          <Slider ref={sliderRef} {...settings}>
+            {images.map((src, index) => (
+              <div
+                key={index}
+                className=" h-[55vh] w-full max-[425px]:h-[35vh] sm:h-[40vh]"
+              >
+                <img
+                  src={src}
+                  alt={`Slide ${index}`}
+                  className="size-full object-cover"
+                />
+              </div>
+            ))}
+          </Slider>
+          <div className="mt-5 flex w-full">
         {images.map((src, index) => (
           <div
             key={index}
@@ -93,10 +97,12 @@ const ImageSlider = () => {
             />
           </div>
         ))}
+          </div>
+        </div>
       </div>
 
-      <div>
-        <ul className="mt-5 flex w-full justify-between text-xs sm:text-sm lg:text-base">
+      <div className="mx-auto lg:w-[70%]">
+        <ul className=" flex w-full justify-between text-xs sm:text-sm lg:text-base">
           <li className="w-full border border-gray-300 py-2 text-center">
             <p>
               <i className="fa-solid fa-calendar-days text-lg text-red-600"></i>
@@ -116,39 +122,6 @@ const ImageSlider = () => {
             5 Stroke
           </li>
         </ul>
-      </div>
-
-      <div className="mt-5 grid w-full grid-cols-2 text-xs sm:text-sm">
-        <div className="col-span-2 w-full sm:col-span-1 sm:pr-2">
-          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
-            <li>Registered In:</li>
-            <li>Lorem ipsum</li>
-          </ul>
-          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
-            <li>Body Type:</li>
-            <li>Standard</li>
-          </ul>
-        </div>
-        <div className="col-span-2 w-full sm:col-span-1 sm:pl-2">
-          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
-            <li>Last Updated:</li>
-            <li>Feb 20, 2024</li>
-          </ul>
-          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
-            <li>Ad Ref #</li>
-            <li>342123</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="mt-5">
-        <h2 className="font-semibold sm:text-lg lg:text-xl">
-          Seller&apos;s Comments
-        </h2>
-        <p className="mt-3 text-xs sm:text-sm">First owner</p>
-        <p className="text-xs sm:text-sm">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-        </p>
       </div>
     </div>
   );

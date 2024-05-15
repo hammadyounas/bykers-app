@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="fixed left-0 top-0 z-50 w-full bg-white px-5 lg:px-10">
         <div className="container flex w-full items-center justify-between">
           {/* Left Side */}
-          <div className="flex w-[60%] items-center max-lg:w-[85%] sm:mx-auto sm:justify-center xl:w-[60%]">
+          <div className="flex w-[60%] items-center max-xl:w-[85%] sm:mx-auto sm:justify-center xl:w-[60%]">
             {/* Logo */}
             <div className={`${menu ? 'hidden' : 'lg:block '}`}>
               <Link href="/" className="flex items-center">
@@ -54,11 +54,16 @@ export default function Navbar() {
                     {/* <img src="/assets/images/Header-img/chevron-down.png" alt="" className='w-6 h-6 lg:ml-2'/> */}
                   </li>
                 </Link>
-                {/* <Link href="#">
+                <Link href="/oldBikes">
                   <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
-                    News
+                    Old Bikes
                   </li>
-                </Link> */}
+                </Link>
+                <Link href="#">
+                  <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
+                    New Bikes
+                  </li>
+                </Link>
               </ul>
             </div>
           </div>

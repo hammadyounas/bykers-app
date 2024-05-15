@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Footer from '../Footer/Footer';
 import ImageSlider from './ImageSlider';
 import Overview from './Overview';
 import ProsAndCons from './ProsAndCons';
@@ -10,6 +11,7 @@ export default function NewBikes() {
       <ImageSlider />
       <ProsAndCons />
       <Overview />
+      <Footer />
     </div>
   );
 }

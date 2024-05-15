@@ -1,0 +1,25 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+/* Hide the scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: none;
+}
+
+/* Edge and other non-WebKit browsers */
+* {
+    overflow: -moz-hidden-unscrollable;
+}
+
+.input-style::placeholder {
+    color: #4a5568;
+  }
+  

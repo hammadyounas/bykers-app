@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <div className="w-100 mt-10 flex items-center justify-between bg-black py-1 text-gray-50 max-sm:flex-col sm:px-10 lg:py-5">
+    <div className="w-100 mt-10 flex items-center justify-between bg-black py-1 text-gray-50 max-sm:flex-col sm:px-10 lg:py-2">
       <div className="flex items-center">
         <img
           src="/assets/Images/logo.png"

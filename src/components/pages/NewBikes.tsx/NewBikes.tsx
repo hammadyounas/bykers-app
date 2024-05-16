@@ -1,9 +1,15 @@
 import React from 'react';
 
 import Footer from '../Footer/Footer';
+import BikesAds from './BikesAds';
+import Colors from './Colors';
+import Comparison from './Comparison';
+import ComparisonDropdown from './ComparisonDropdown';
 import ImageSlider from './ImageSlider';
 import Overview from './Overview';
 import ProsAndCons from './ProsAndCons';
+import Reviews from './Reviews';
+import Specifications from './Specifications';
 
 export default function NewBikes() {
   return (
@@ -11,6 +17,12 @@ export default function NewBikes() {
       <ImageSlider />
       <ProsAndCons />
       <Overview />
+      <Specifications />
+      <Colors />
+      <Comparison />
+      <ComparisonDropdown />
+      <Reviews />
+      <BikesAds />
       <Footer />
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Overview() {
   return (
-    <div className="mx-auto mt-20 w-full bg-slate-100 py-10">
+    <div className="mx-auto mt-10 w-full bg-slate-100 py-10 sm:mt-20">
       <div className="mx-auto w-[95%] sm:w-[90%] lg:w-[70%] xl:w-[60%]">
         <h1 className="text-lg font-semibold text-black sm:text-xl lg:text-2xl">
           Honda Pridor Overview

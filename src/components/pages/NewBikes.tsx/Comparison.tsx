@@ -3,7 +3,7 @@ import React from 'react';
 export default function Comparison() {
   return (
     <div className="mx-auto mt-10 w-[95%] sm:mt-20 sm:w-[90%] lg:w-[70%] xl:w-[60%]">
-      <h1 className="text-lg font-semibold text-black sm:text-xl lg:text-2xl">
+      <h1 className="text-lg font-medium text-gray-800 sm:text-xl lg:text-2xl">
         Comparison
       </h1>
 

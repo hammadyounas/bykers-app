@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Footer from '../Footer/Footer';
+import Alternatives from './Alternatives';
 import BikesAds from './BikesAds';
 import Colors from './Colors';
 import Comparison from './Comparison';
@@ -22,6 +23,7 @@ export default function NewBikes() {
       <Comparison />
       <ComparisonDropdown />
       <Reviews />
+      <Alternatives />
       <BikesAds />
       <Footer />
     </div>

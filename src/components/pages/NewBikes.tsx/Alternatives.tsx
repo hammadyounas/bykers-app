@@ -13,7 +13,7 @@ export default function Alternatives() {
 
   const SampleNextArrow: React.FC<ArrowProps> = ({ onClick }) => (
     <button
-      className="absolute right-0 top-1/2 z-50 flex -translate-y-2/3 items-center bg-white px-1 text-2xl font-bold text-red-600 lg:px-2 lg:text-3xl"
+      className="absolute right-0 top-1/2  flex -translate-y-2/3 items-center bg-white px-1 text-2xl font-bold text-red-600 lg:px-2 lg:text-3xl"
       onClick={onClick}
     >
       &gt;
@@ -22,7 +22,7 @@ export default function Alternatives() {
 
   const SamplePrevArrow: React.FC<ArrowProps> = ({ onClick }) => (
     <button
-      className="absolute left-0 top-1/2 z-50 flex -translate-y-2/3 items-center bg-white px-1 text-2xl font-bold text-red-600 lg:px-2 lg:text-3xl"
+      className="absolute left-0 top-1/2 z-10 flex -translate-y-2/3 items-center bg-white px-1 text-2xl font-bold text-red-600 lg:px-2 lg:text-3xl"
       onClick={onClick}
     >
       &lt;

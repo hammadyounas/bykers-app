@@ -6,6 +6,7 @@ import BikesAds from './BikesAds';
 import Colors from './Colors';
 import Comparison from './Comparison';
 import ComparisonDropdown from './ComparisonDropdown';
+import Discussion from './Discussion';
 import Faq from './Faq';
 import ImageSlider from './ImageSlider';
 import Overview from './Overview';
@@ -26,6 +27,7 @@ export default function NewBikes() {
       <Comparison />
       <ComparisonDropdown />
       <Reviews />
+      <Discussion />
       <Faq />
       <Alternatives />
       <BikesAds />

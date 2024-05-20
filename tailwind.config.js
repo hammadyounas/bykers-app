@@ -26,6 +26,10 @@ module.exports = {
           800: '#014C6E',
           900: '#013349',
         },
+        secondary: {
+          light: '#dc2626',
+          DEFAULT: '#b91c1c',
+        },
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',

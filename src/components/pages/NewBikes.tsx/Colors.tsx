@@ -22,7 +22,7 @@ export default function Colors() {
               <p className="ml-2 mt-2">Blue</p>
             </div>
             <div>
-              <p className="size-12 rounded-full bg-red-600"></p>
+              <p className="size-12 rounded-full bg-secondary-light"></p>
               <p className="ml-3 mt-2">Red</p>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type IBannerProps = {
   title?: string;
@@ -9,7 +9,7 @@ type IBannerProps = {
 const Banner = (props: IBannerProps) => (
   <div
     className={`mx-auto max-w-screen-lg px-3 ${
-      props.yPadding ? props.yPadding : "py-16"
+      props.yPadding ? props.yPadding : 'py-16'
     }`}
   >
     {(props.title || props.description) && (

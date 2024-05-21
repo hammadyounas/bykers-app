@@ -1,5 +1,6 @@
-import { Background } from "@/components/common/Background";
-import { Banner } from "./Banner";
+import { Background } from '@/components/common/Background';
+
+import { Banner } from './Banner';
 
 const BannerSection = () => (
   <div className="text-gray-600 antialiased">

@@ -35,7 +35,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
       {isOpen && (
         <div className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg">
-          <ul className="max-h-60 overflow-auto rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <ul className="ring-opacity/5 max-h-60 overflow-auto rounded-md py-1 text-base ring-1 ring-gray-300 focus:outline-none sm:text-sm">
             {options.map((option) => (
               <li
                 key={option.value}

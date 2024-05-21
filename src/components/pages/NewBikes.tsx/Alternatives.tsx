@@ -65,6 +65,7 @@ export default function Alternatives() {
         <h1 className="text-lg font-medium text-gray-800 sm:text-xl lg:text-2xl">
           Alternatives
         </h1>
+        <p className="hidden">Current Slide: {currentSlide + 1}</p>
         <Slider {...settings}>
           {similarAdsConstant.map((item, index) => (
             <div

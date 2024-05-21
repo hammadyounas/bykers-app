@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Pagination() {
+export default function PaginationUI() {
   return (
     <>
       <nav aria-label="Page navigation example">

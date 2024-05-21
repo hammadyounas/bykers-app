@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Dropdown from '@/components/ui/Dropdown';
 import Link from 'next/link';
 import ViewBikesData from './ViewBikesData';
-import Pagination from '@/components/ui/pagination';
+import PaginationUI from '@/components/ui/PaginationUI';
 
 export default function ViewBikes() {
   const [selectedModel, setSelectedModel] = useState<string>('');
@@ -45,7 +45,7 @@ export default function ViewBikes() {
         </div>
         <ViewBikesData />
         <div className='w-full flex justify-end items-end'>
-        <Pagination />
+        <PaginationUI />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import React from 'react';
 export default function Comparison() {
   return (
     <div className="mx-auto mt-10 w-[95%] sm:mt-20 sm:w-[90%] lg:w-[70%] xl:w-[60%]">
-      <h1 className="text-lg font-semibold text-black sm:text-xl lg:text-2xl">
+      <h1 className="text-lg font-medium text-gray-800 sm:text-xl lg:text-2xl">
         Comparison
       </h1>
 
@@ -22,7 +22,7 @@ export default function Comparison() {
                 </p>
               </div>
               <div className="pr-5 sm:-ml-12">
-                <p className="rounded-full bg-red-700 p-2 font-bold text-white max-sm:text-sm sm:p-4">
+                <p className="rounded-full bg-secondary p-2 font-bold text-white max-sm:text-sm sm:p-4">
                   VS
                 </p>
               </div>
@@ -47,14 +47,14 @@ export default function Comparison() {
           <div className="mt-5 flex items-center justify-between max-sm:text-sm sm:w-[30%] sm:flex-col sm:justify-center">
             <div className="flex flex-col items-center justify-center">
               <h2 className="mb-2">Unique UD 100</h2>
-              <span className="rounded-full bg-red-700 px-2 py-1 text-sm font-semibold text-white ">
+              <span className="rounded-full bg-secondary px-2 py-1 text-sm font-semibold text-white ">
                 VS
               </span>
               <h2 className="mt-2">Honda Pridor</h2>
             </div>
             <div className="flex flex-col items-center justify-center sm:mt-5">
               <h2 className="mb-2">Suzuki Raider 10</h2>
-              <span className="rounded-full bg-red-700 px-2 py-1 text-sm font-semibold text-white ">
+              <span className="bg-red- rounded-full px-2 py-1 text-sm font-semibold text-white ">
                 VS
               </span>
               <h2 className="mt-2">Honda Pridor</h2>

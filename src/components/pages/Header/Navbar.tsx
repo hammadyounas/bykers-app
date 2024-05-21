@@ -38,29 +38,29 @@ export default function Navbar() {
               <ul className="flex w-[100%] items-center text-center font-semibold max-lg:flex-col">
                 {/* <li className='max-lg:py-2 max-lg:hover:bg-secondary lg:hover:text-secondary cursor-pointer text-center max-lg:hover:text-white max-lg:w-full rounded-md'>Home</li> */}
                 <Link href="/">
-                  <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
+                  <li className="flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:bg-secondary max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
                     Home
                   </li>
                 </Link>
                 <Link href="/#featured">
-                  <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
+                  <li className="flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:bg-secondary max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
                     Featured Bike
                     {/* <img src="/assets/images/Header-img/chevron-down.png" alt="" className='w-6 h-6 lg:ml-2'/> */}
                   </li>
                 </Link>
                 <Link href="/#browse">
-                  <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
+                  <li className="flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:bg-secondary max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
                     Browse By Type
                     {/* <img src="/assets/images/Header-img/chevron-down.png" alt="" className='w-6 h-6 lg:ml-2'/> */}
                   </li>
                 </Link>
                 <Link href="/oldBikes">
-                  <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
+                  <li className="flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:bg-secondary max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
                     Old Bikes
                   </li>
                 </Link>
                 <Link href="/newBikes">
-                  <li className="max-lg:hover:bg-secondary flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
+                  <li className="flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:bg-secondary max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
                     New Bikes
                   </li>
                 </Link>

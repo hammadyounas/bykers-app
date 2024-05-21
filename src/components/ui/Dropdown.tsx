@@ -39,9 +39,9 @@ const Dropdown: React.FC<DropdownProps> = ({
             {options.map((option) => (
               <li
                 key={option.value}
-                className={`relative cursor-pointer select-none py-2 pl-3 pr-9 hover:bg-red-600 hover:text-white ${
+                className={`relative cursor-pointer select-none py-2 pl-3 pr-9 hover:bg-secondary-light hover:text-white ${
                   selected === option.value
-                    ? 'bg-red-600 text-white'
+                    ? 'bg-secondary-light text-white'
                     : 'text-gray-900'
                 }`}
                 onClick={() => {

@@ -5,7 +5,7 @@ import NewBikes from '@/components/pages/NewBikes.tsx/NewBikes';
 
 export default function newBikes() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Navbar />
       <NewBikes />
     </div>

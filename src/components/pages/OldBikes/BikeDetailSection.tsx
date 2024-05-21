@@ -10,7 +10,7 @@ export default function BikeDetailSection() {
             Price $10000
           </h1>
         </div>
-        <div className="m-5 flex items-center justify-center bg-red-600 p-2 text-center text-white">
+        <div className="m-5 flex items-center justify-center bg-secondary-light p-2 text-center text-white">
           <div className="mr-3">
             <i className="fa-solid fa-phone text-2xl"></i>
           </div>
@@ -41,9 +41,9 @@ export default function BikeDetailSection() {
         </div>
 
         <div className="mx-auto flex w-[50%] justify-around lg:w-[60%]">
-          <i className="fa-solid fa-mobile-retro rounded-full bg-red-600 px-3 py-2 text-xl text-white"></i>
-          <i className="fa-solid fa-envelope rounded-full bg-red-600 p-2 text-xl text-white"></i>
-          <i className="fa-brands fa-facebook-f rounded-full bg-red-600 px-3 py-2 text-xl text-white"></i>
+          <i className="fa-solid fa-mobile-retro rounded-full bg-secondary-light px-3 py-2 text-xl text-white"></i>
+          <i className="fa-solid fa-envelope rounded-full bg-secondary-light p-2 text-xl text-white"></i>
+          <i className="fa-brands fa-facebook-f rounded-full bg-secondary-light px-3 py-2 text-xl text-white"></i>
         </div>
         <div className="m-5 rounded-md py-1 text-center text-xs lg:text-sm">
           <p className="">See if your friends know this seller</p>

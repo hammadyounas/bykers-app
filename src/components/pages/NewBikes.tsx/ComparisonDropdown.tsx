@@ -38,7 +38,7 @@ const ComparisonDropdown: React.FC = () => {
             setSelected={setSelectedModel}
           />
           <div className="w-full  max-sm:text-xs">
-            <button className="mt-1 block w-full rounded-md border border-gray-300 bg-red-600 py-2 pl-3  pr-10 text-center font-semibold text-white shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm lg:py-3">
+            <button className="mt-1 block w-full rounded-md border border-gray-300 bg-secondary-light py-2 pl-3  pr-10 text-center font-semibold text-white shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm lg:py-3">
               Comparisons
             </button>
           </div>

@@ -1,8 +1,13 @@
+import PaginationUI from '@/components/ui/PaginationUI';
 import { bikesData } from 'constant/viewBikeData';
 import React, { useState } from 'react';
 
-export default function ViewBikesData() {
-  const [dropdownsVisible, setDropdownsVisible] = useState<boolean[]>([]);
+const ITEMS_PER_PAGE = 8;
+
+
+const ViewBikesData: React.FC = () => {
+  const [dropdownsVisible, setDropdownsVisible] = useState<boolean[]>(new Array(bikesData.length).fill(false));
+  const [currentPage, setCurrentPage] = useState(1);
 
   const toggleDropdown = (index: number) => {
     setDropdownsVisible((prev) => {
@@ -12,7 +17,8 @@ export default function ViewBikesData() {
     });
   };
 
-
+  const totalPages = Math.ceil(bikesData.length / ITEMS_PER_PAGE);
+  const currentData = bikesData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
     <div className='sm:w-full w-full mx-auto overflow-x-auto'>
@@ -27,18 +33,18 @@ export default function ViewBikesData() {
           <li className='w-1/6 border-t lg:py-6 py-2 px-1'>Type</li>
           <li className='w-[10%] border-t lg:py-6 py-2 px-1'>Action</li>
         </ul>
-        </div>
-        <div>
-        {bikesData.map((bike, index) => (
-          <ul key={index} className='flex items-center justify-between  lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900'>
+      </div>
+      <div>
+        {currentData.map((bike, index: number) => (
+          <ul key={index} className='flex items-center justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900'>
             <li className='w-1/5 border-t lg:py-6 px-1 py-2'>{bike.title}</li>
-            <li className='w-1/4   border-t lg:py-6 px-1 py-2'>{bike.model}</li>
+            <li className='w-1/4 border-t lg:py-6 px-1 py-2'>{bike.model}</li>
             <li className='w-1/6 border-t lg:py-6 px-1 py-2'>{bike.price}</li>
             <li className='max-sm:hidden w-1/3 border-t lg:py-6 px-1 py-2'>{bike.engine}</li>
             <li className='sm:w-1/6 w-1/5 border-t lg:py-6 px-1 py-2'>{bike.displacement}</li>
             <li className='max-sm:hidden w-1/6 border-t lg:py-6 px-1 py-2'>{bike.petrolCapacity}</li>
-            <li className={`w-1/6 border-t lg:py-1 py-1 px-1 rounded-full font-semibold ${bike.type === "New"? "text-green-600 ": "text-red-600"}`}>{bike.type}</li>
-            <li className='relative w-[10%] border-t lg:py-6 px-1 py-2 cursor-pointer '>
+            <li className={`w-1/6 border-t lg:py-1 py-1 px-1 rounded-full font-semibold ${bike.type === "New" ? "text-green-600 " : "text-red-600"}`}>{bike.type}</li>
+            <li className='relative w-[10%] border-t lg:py-6 px-1 py-2 cursor-pointer'>
               <i className="fa-solid fa-ellipsis-vertical lg:text-lg" onClick={() => toggleDropdown(index)}></i>
               {dropdownsVisible[index] && (
                 <ul className="absolute w-32 right-0 mt-2 bg-white border border-gray-300 rounded shadow-lg z-10">
@@ -51,6 +57,15 @@ export default function ViewBikesData() {
           </ul>
         ))}
       </div>
+      <div className='w-full flex justify-end items-end mt-5'>
+        <PaginationUI
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </div>
     </div>
   );
-}
+};
+
+export default ViewBikesData;

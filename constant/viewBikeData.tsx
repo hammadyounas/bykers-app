@@ -1,4 +1,15 @@
-export const bikesData = [
+interface Bike {
+  title: string;
+  model: string;
+  price: string;
+  engine: string;
+  displacement: string;
+  fuelAverage: string;
+  petrolCapacity: string;
+  type: string;
+}
+
+export const bikesData: Bike[] = [
     {
       title: 'Honda Pridor',
       model: 'Honda CG 125 2024',

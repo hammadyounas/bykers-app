@@ -6,10 +6,12 @@ import Footer from '@/components/pages/Footer/Footer';
 
 export default function viewBikes() {
   return (
-    <div>
+    <div className=''>
       <Navbar />
       <ViewBikes />
+      <div className='-mt-10'>
       <Footer />
+      </div>
     </div>
   );
 }

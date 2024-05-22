@@ -27,7 +27,7 @@ export default function ViewBikes() {
             />
             <div className="sm:w-[50%] sm:ml-4 max-sm:mr-4">
               <Dropdown
-                label="Filter"
+                label={"Filter"}
                 options={allTypes}
                 selected={selectedTypes}
                 setSelected={setSelectedTypes}

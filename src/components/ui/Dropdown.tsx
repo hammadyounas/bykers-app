@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface Option {
   value: string;
@@ -19,6 +20,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   setSelected,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="relative w-full max-sm:text-xs">
@@ -26,7 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="mt-1 block w-full rounded-sm border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:text-sm lg:py-3"
+        className={`mt-1 block w-full rounded-sm border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 sm:text-sm ${pathname === '/admin/viewBikes'? "lg:py-2": "lg:py-3"}`}
       >
         {selected
           ? options.find((option) => option.value === selected)?.label

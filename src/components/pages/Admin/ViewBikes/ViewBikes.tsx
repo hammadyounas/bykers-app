@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Dropdown from '@/components/ui/Dropdown';
-import Link from 'next/link';
-import ViewBikesData from './ViewBikesData';
+import Dropdown from "@/components/ui/Dropdown";
+import Link from "next/link";
+import ViewBikesData from "./ViewBikesData";
 
 export default function ViewBikes() {
-  const [selectedTypes, setSelectedTypes] = useState<string>('');
+  const [selectedTypes, setSelectedTypes] = useState<string>("");
   const allTypes = [
-    { value: 'old-bikes', label: 'Old Bikes' },
-    { value: 'new-bikes', label: 'New Bikes' },
+    { value: "old-bikes", label: "Old Bikes" },
+    { value: "new-bikes", label: "New Bikes" },
   ];
   return (
     <div className="pt-20 sm:pt-32 w-full bg-slate-100 pb-14  min-h-[100vh]">
@@ -34,7 +34,7 @@ export default function ViewBikes() {
               />
             </div>
             <div className="flex w-[50%] sm:ml-4 items-center justify-center cursor-pointer bg-secondary-light rounded text-white font-semibold hover:bg-secondary max-sm:py-2 max-sm:mt-1 sm:text-sm text-xs">
-              <Link href={"/addBikes"} className='flex justify-between'>
+              <Link href={"/addBikes"} className="flex justify-between">
                 <p>
                   <i className="fa-solid fa-plus"></i> Add Bike
                 </p>

@@ -6,7 +6,11 @@ interface PaginationUIProps {
   onPageChange: (page: number) => void;
 }
 
-const PaginationUI: React.FC<PaginationUIProps> = ({ currentPage, totalPages, onPageChange }) => {
+const PaginationUI: React.FC<PaginationUIProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   const handlePrevious = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);

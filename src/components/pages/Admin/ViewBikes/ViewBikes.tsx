@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Dropdown from "@/components/ui/Dropdown";
 import Link from "next/link";
 import ViewBikesData from "./ViewBikesData";
+import GridView from "@/components/ui/GridView";
+import Title from "@/components/ui/Title";
 
 export default function ViewBikes() {
   const [selectedTypes, setSelectedTypes] = useState<string>("");
@@ -11,8 +13,10 @@ export default function ViewBikes() {
     { value: "new-bikes", label: "New Bikes" },
   ];
   return (
-    <div className="pt-20 sm:pt-32 w-full bg-slate-100 pb-14  min-h-[100vh]">
-      <div className="mx-auto flex bg-white shadow-md w-[95%] flex-col items-center justify-center  max-lg:flex-col lg:w-[80%] lg:p-5 p-2">
+    <GridView>
+    <div className="  w-full bg-slate-100 pb-14 h-[100vh] overflow-y-scroll">
+      <Title title="View Bikes" />
+      <div className="mt-10 mx-auto flex bg-white shadow-md w-[95%] flex-col items-center justify-center  max-lg:flex-col lg:w-[95%] lg:p-5 p-2">
         <div className="flex max-sm:flex-col justify-between items-center w-full">
           <div className="lg:w-[20%] w-[40%] max-sm:mb-2">
             <h1 className="sm:text-base text-sm font-medium text-gray-800 lg:text-xl">
@@ -46,5 +50,6 @@ export default function ViewBikes() {
         <ViewBikesData />
       </div>
     </div>
+    </GridView>
   );
 }

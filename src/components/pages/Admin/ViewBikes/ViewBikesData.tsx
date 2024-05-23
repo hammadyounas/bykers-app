@@ -31,13 +31,13 @@ const ViewBikesData: React.FC = () => {
           <li className="w-1/5 border-t lg:py-6 py-2 px-1">Title</li>
           <li className="w-1/4 border-t lg:py-6 py-2 px-1">Model</li>
           <li className="w-1/6 border-t lg:py-6 py-2 px-1">Price</li>
-          <li className="max-sm:hidden w-1/3 border-t lg:py-6 py-2 px-1">
+          <li className="max-sm:hidden w-1/4 border-t lg:py-6 py-2 px-1">
             Engine
           </li>
-          <li className="sm:w-1/6 w-1/5 border-t lg:py-6 py-2 px-1">
+          <li className="sm:w-1/5 w-1/5 border-t lg:py-6 py-2 px-1">
             Displacement
           </li>
-          <li className="max-sm:hidden w-1/6 border-t lg:py-6 py-2 px-1">
+          <li className="max-sm:hidden w-1/6  border-t lg:py-6 py-2 px-1">
             Petrol Capacity
           </li>
           <li className="w-1/6 border-t lg:py-6 py-2 px-1">Type</li>
@@ -53,24 +53,25 @@ const ViewBikesData: React.FC = () => {
             <li className="w-1/5 border-t lg:py-6 px-1 py-2">{bike.title}</li>
             <li className="w-1/4 border-t lg:py-6 px-1 py-2">{bike.model}</li>
             <li className="w-1/6 border-t lg:py-6 px-1 py-2">{bike.price}</li>
-            <li className="max-sm:hidden w-1/3 border-t lg:py-6 px-1 py-2">
+            <li className="max-sm:hidden w-1/4 border-t lg:py-6 px-1 py-2">
               {bike.engine}
             </li>
-            <li className="sm:w-1/6 w-1/5 border-t lg:py-6 px-1 py-2">
+            <li className="sm:w-1/5 w-1/5 border-t lg:py-6 px-1 py-2">
               {bike.displacement}
             </li>
             <li className="max-sm:hidden w-1/6 border-t lg:py-6 px-1 py-2">
               {bike.petrolCapacity}
             </li>
             <li
-              className={`w-1/6 border-t lg:py-1 py-1 px-1 rounded-full font-semibold ${bike.type === "New" ? "text-green-600 " : "text-red-600"}`}
+              className={`w-1/6 border-t lg:py-1 py-1 px-1 rounded-full font-semibold ${bike.type === "New" ? "text-green-600" : "text-red-600"}`}
             >
               {bike.type}
             </li>
-            <li className="relative w-[10%] border-t lg:py-6 px-1 py-2 cursor-pointer">
+            <li className="relative w-[10%] border-t lg:py-6 px-1 py-2 cursor-pointer"
+            onClick={() => toggleDropdown(index)}>
               <i
                 className="fa-solid fa-ellipsis-vertical lg:text-lg"
-                onClick={() => toggleDropdown(index)}
+                
               ></i>
               {dropdownsVisible[index] && (
                 <ul className="absolute w-32 right-0 mt-2 bg-white border border-gray-300 rounded shadow-lg z-10">

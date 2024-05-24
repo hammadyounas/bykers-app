@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Footer from '../Footer/Footer';
 import Alternatives from './Alternatives';
 import BikesAds from './BikesAds';
 import Colors from './Colors';
@@ -17,7 +16,7 @@ import Specifications from './Specifications';
 
 export default function NewBikes() {
   return (
-    <div className="flex min-h-screen w-full flex-col justify-center pt-20 max-lg:flex-col sm:pt-32">
+    <div className="flex min-h-screen w-full flex-col justify-center py-20 max-lg:flex-col sm:py-32">
       <ImageSlider />
       <Price />
       <ProsAndCons />
@@ -31,7 +30,7 @@ export default function NewBikes() {
       <Faq />
       <Alternatives />
       <BikesAds />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

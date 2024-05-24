@@ -1,13 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import Navbar from '@/components/pages/Header/Navbar';
-import OldBike from '@/components/pages/OldBikes/OldBike';
+import OldBike from "@/components/pages/OldBikes/OldBike";
+import GridView from "../components/ui/GridView";
+import Title from "../components/ui/Title";
 
 export default function oldBikes() {
   return (
     <div>
-      <Navbar />
-      <OldBike />
+      {/* <Navbar /> */}
+      <GridView>
+        <Title title="Old Bikes" />
+        <OldBike />
+      </GridView>
     </div>
   );
 }

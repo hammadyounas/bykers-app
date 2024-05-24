@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function BikeDetailSection() {
   return (
-    <div className="max-sm:mx- p-2 max-lg:p-10 max-sm:p-3 lg:w-[30%] xl:w-[20%]">
+    <div className="max-sm:mx- p-2 max-lg:p-10 max-sm:p-3 lg:w-[30%] xl:w-[25%]">
       {/* price and contact detail section */}
       <div className="w-full bg-white py-3">
         <div className=" border-b p-2">

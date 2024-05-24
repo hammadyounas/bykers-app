@@ -6,14 +6,19 @@ export interface MenuItems {
 
 export const MenuItemsConstant: MenuItems[] = [
     {
+        title: 'View Bikes',
+        icon: 'fa-eye',
+        link: "/admin/viewBikes"
+    },
+    {
         title: 'New Bikes',
         icon: 'fa-motorcycle',
-        link: "#"
+        link: "/newBikes"
     },
     {
         title: 'Old Bikes',
-        icon: 'fa-motorcycle',
-        link: "#"
+        icon: 'fa-person-biking',
+        link: "/oldBikes"
     },
     {
         title: 'Queries',

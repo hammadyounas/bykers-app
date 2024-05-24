@@ -14,8 +14,8 @@ export default function ViewBikes() {
   ];
   return (
     <GridView>
-    <div className="  w-full bg-slate-100 pb-14 h-[100vh] overflow-y-scroll">
-      <Title title="View Bikes" />
+    <div className="  w-full bg-slate-100 pb-14">
+      <Title title="Admin Dashboard" />
       <div className="mt-10 mx-auto flex bg-white shadow-md w-[95%] flex-col items-center justify-center  max-lg:flex-col lg:w-[95%] lg:p-5 p-2">
         <div className="flex max-sm:flex-col justify-between items-center w-full">
           <div className="lg:w-[20%] w-[40%] max-sm:mb-2">

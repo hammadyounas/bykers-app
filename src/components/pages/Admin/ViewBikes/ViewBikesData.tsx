@@ -1,6 +1,7 @@
 import PaginationUI from "@/components/ui/PaginationUI";
 import { bikesData } from "constant/viewBikeData";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -9,6 +10,7 @@ const ViewBikesData: React.FC = () => {
     new Array(bikesData.length).fill(false)
   );
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
 
   const toggleDropdown = (index: number) => {
     setDropdownsVisible((prev) => {
@@ -23,6 +25,14 @@ const ViewBikesData: React.FC = () => {
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
+
+  const handleItemClick = (bike: any) => {
+    if (bike.type === "New") {
+      router.push(`/newBikes`);
+    } else if (bike.type === "Old") {
+      router.push(`/oldBikes`);
+    }
+  };
 
   return (
     <div className="sm:w-full w-full mx-auto overflow-x-auto">
@@ -48,7 +58,8 @@ const ViewBikesData: React.FC = () => {
         {currentData.map((bike, index: number) => (
           <ul
             key={index}
-            className="flex items-center justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900"
+            className="flex items-center justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
+            onClick={() => handleItemClick(bike)}
           >
             <li className="w-1/5 border-t lg:py-6 px-1 py-2">{bike.title}</li>
             <li className="w-1/4 border-t lg:py-6 px-1 py-2">{bike.model}</li>

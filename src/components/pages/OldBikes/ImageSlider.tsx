@@ -52,7 +52,7 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="relative mx-3 border-2 border-gray-200 bg-white p-2 sm:mx-10 sm:p-10 lg:w-[50%] xl:w-[40%]">
+    <div className="relative mx-3 border-2 border-gray-200 bg-white p-2 sm:mx-10 sm:p-10 lg:w-[50%] xl:w-[45%]">
       <h1 className=" text-base font-bold text-black sm:text-lg lg:text-2xl">
         Honda CG 125 2024
       </h1>

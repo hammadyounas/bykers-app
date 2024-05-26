@@ -16,7 +16,7 @@ export default function ViewBikes() {
     <GridView>
     <div className="flex min-h-screen flex-col justify-center py-20 max-lg:flex-col pt-10 mx-auto bg-white shadow-md w-[95%] items-center lg:w-[100%] lg:p-5 p-2">
       <Title title="Admin Dashboard" />
-      <div className="mt-10 mx-auto flex bg-white shadow-md w-[95%] flex-col items-center justify-center  max-lg:flex-col lg:w-[95%] lg:p-5 p-2">
+      <div className="mt-10 mx-auto flex bg-white shadow-md w-[95%] flex-col items-center justify-center  max-lg:flex-col lg:w-[100%] lg:p-5 p-2">
         <div className="flex max-sm:flex-col justify-between items-center w-full">
           <div className="lg:w-[20%] w-[40%] max-sm:mb-2">
             <h1 className="sm:text-base text-sm font-medium text-gray-800 lg:text-xl">

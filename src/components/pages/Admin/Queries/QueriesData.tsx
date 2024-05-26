@@ -43,7 +43,7 @@ const QueriesData: React.FC = () => {
             Description
           </li>
           <li className="w-1/6 border-t lg:py-6 py-2 px-1 text-center">
-            Free Trial
+            Free Ride
           </li>
           <li className="w-[10%] border-t lg:py-6 py-2 px-1 text-center">
             Action

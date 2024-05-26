@@ -1,37 +1,71 @@
-import {
-  cruiselMotorcyclesConstant,
-  sportsBikeConstant,
-  standardBikeConstant,
-  touringMotorcyclesConstant,
-} from 'constant/BikeTypeConstant'; // Import your bike data
+import { newBikeConstant, oldBikeConstant } from 'constant/OldAndNewBikesConstant';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import Slider from 'react-slick';
+import BikeDetailSection from '../OldBikes/BikeDetailSection';
+import SimilarAds from '../OldBikes/SimilarAds';
+import Link from 'next/link';
 
 export default function BikeDetailsPage() {
+  const sliderRef = useRef<Slider>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  interface ArrowProps {
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  }
+
+  const SampleNextArrow: React.FC<ArrowProps> = ({ onClick }) => (
+    <button
+      className="absolute right-0 top-1/2 z-10 flex -translate-y-2/3 items-center bg-gray-300 text-2xl font-bold text-red-600 opacity-60 lg:text-3xl"
+      onClick={onClick}
+    >
+      &gt;
+    </button>
+  );
+
+  const SamplePrevArrow: React.FC<ArrowProps> = ({ onClick }) => (
+    <button
+      className="absolute left-0 top-1/2 z-10 flex -translate-y-2/3 items-center bg-gray-300 text-2xl font-bold text-red-600 opacity-60 lg:text-3xl"
+      onClick={onClick}
+    >
+      &lt;
+    </button>
+  );
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    beforeChange: (_current: number, next: number) => setCurrentSlide(next),
+  };
+
+  const handleThumbnailClick = (index: number) => {
+    setCurrentSlide(index);
+    sliderRef.current?.slickGoTo(index);
+  };
   const router = useRouter();
   const { alt } = router.query; // Get the bike title from the URL parameter
 
   let bike: any;
   if (alt) {
-    bike = standardBikeConstant.find((item) => item.alt === alt);
+    bike = newBikeConstant.find((item) => item.alt === alt);
     if (!bike) {
-      bike = sportsBikeConstant.find((item) => item.alt === alt);
-    }
-    if (!bike) {
-      bike = cruiselMotorcyclesConstant.find((item) => item.alt === alt);
-    }
-    if (!bike) {
-      bike = touringMotorcyclesConstant.find((item) => item.alt === alt);
+      bike = oldBikeConstant.find((item) => item.alt === alt);
     }
   }
 
   // State to track the currently selected image
   const [selectedImage, setSelectedImage] = useState(bike?.src[0] || '');
 
-  const handleImageClick = (image: any) => {
-    // Update the selected image when any map image is clicked
-    setSelectedImage(image);
-  };
+  // const handleImageClick = (image: any) => {
+  //   // Update the selected image when any map image is clicked
+  //   setSelectedImage(image);
+  // };
+  console.log(setSelectedImage)
 
   if (!bike) {
     // Handle case where bike is not found
@@ -39,9 +73,128 @@ export default function BikeDetailsPage() {
   }
 
   return (
-    <div className="mx-auto flex w-full justify-center max-lg:flex-col lg:mt-20 lg:h-screen">
+    <>
+    <div className="flex min-h-screen w-full justify-center bg-slate-50 max-lg:flex-col mt-20 ">
+    <div className="relative mx-3 border-2 border-gray-200 bg-white p-2 sm:mx-10 sm:p-10 lg:w-[50%] xl:w-[45%]">
+      <div className='flex justify-between'>
+      <h1 className=" text-base font-bold text-black sm:text-lg lg:text-2xl">
+        {bike.title}
+      </h1>
+          {/* buy a bike */}
+    <div className=''>
+      <Link href={'/buyBikes'}>
+      <p className='bg-secondary-light text-white px-6 py-1 rounded font-medium'>
+        Buy A Bike  
+      </p>
+      </Link>
+    </div>
+      </div>
+      <div className="flex justify-between">
+        <div>
+          <h4 className="text-red-700">Washington, USA</h4>
+        </div>
+        <div>
+          <i className="fa-regular fa-heart text-lg text-red-600"></i>
+          <i className="fa-regular fa-bookmark ml-2 text-lg text-red-600"></i>
+        </div>
+      </div>
+      <Slider ref={sliderRef} {...settings}>
+        {bike.src.map((image: any, index: any) => (
+          <div
+            key={index}
+            className="mt-5 h-[55vh] w-full max-[425px]:h-[35vh] sm:h-[55vh]"
+          >
+            <img
+              src={selectedImage || image}
+              alt={`Slide ${index}`}
+              className="size-full object-cover"
+            />
+          </div>
+        ))}
+      </Slider>
+      <div className="mt-5 flex w-full">
+        {bike.src.map((image: any, index: any) => (
+          <div
+            key={index}
+            className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? 'border-2 border-red-600' : 'border'}`}
+            onClick={() => handleThumbnailClick(index)}
+          >
+            <img
+              src={image}
+              alt={`Thumbnail ${index}`}
+              className="size-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div>
+        <ul className="mt-5 flex w-full justify-between text-xs sm:text-sm lg:text-base">
+          <li className="w-full border border-gray-300 py-2 text-center">
+            <p>
+              <i className="fa-solid fa-calendar-days text-lg text-red-600"></i>
+            </p>
+            2024
+          </li>
+          <li className="w-full border border-gray-300 py-2 text-center">
+            <p>
+              <i className="fa-solid fa-gauge text-lg text-red-600"></i>
+            </p>
+            550 KM
+          </li>
+          <li className="w-full border border-gray-300 py-2 text-center">
+            <p>
+              <i className="fa-solid fa-gas-pump text-lg text-red-600"></i>
+            </p>
+            {bike.engine}
+          </li>
+        </ul>
+      </div>
+
+      <div className="mt-5 grid w-full grid-cols-2 text-xs sm:text-sm">
+        <div className="col-span-2 w-full sm:col-span-1 sm:pr-2">
+          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
+            <li>Registered In:</li>
+            <li>Lorem ipsum</li>
+          </ul>
+          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
+            <li>Body Type:</li>
+            <li>{bike.type}</li>
+          </ul>
+        </div>
+        <div className="col-span-2 w-full sm:col-span-1 sm:pl-2">
+          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
+            <li>Last Updated:</li>
+            <li>Feb 20, 2024</li>
+          </ul>
+          <ul className="flex w-full justify-between border-y border-gray-300 py-1 sm:py-3">
+            <li>Ad Ref #</li>
+            <li>342123</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <h2 className="font-semibold sm:text-lg lg:text-xl">
+          Seller&apos;s Comments
+        </h2>
+        <p className="mt-3 text-xs sm:text-sm">First owner</p>
+        <p className="text-xs sm:text-sm">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+        </p>
+      </div>
+    </div>
+
+    <BikeDetailSection price={bike.price}/>
+  </div>
+
+  <div className=" mx-auto w-full bg-slate-100 py-10  lg:py-20">
+        <SimilarAds />
+      </div>
+
+  {/* extra */}
+    {/* <div className="mx-auto flex w-full justify-center max-lg:flex-col lg:mt-20 lg:h-screen">
       <div className="h-[50vh] w-[100%] max-lg:mx-auto lg:w-[50%]  xl:h-[70vh]">
-        {/* Display the selected image */}
         <div className="h-[45vh] overflow-hidden object-fill p-5 max-[375px]:h-[40vh] sm:h-[70vh] lg:h-[50vh] lg:w-[90%] xl:h-[60vh]">
           <img
             src={selectedImage}
@@ -51,7 +204,6 @@ export default function BikeDetailsPage() {
         </div>
 
         <div className="mx-auto  mt-5 flex items-center max-sm:justify-center sm:mt-10 sm:w-[30%] lg:w-[60%]">
-          {/* Display other images */}
           {bike.src.map((image: any, index: any) => (
             <img
               key={index}
@@ -109,6 +261,7 @@ export default function BikeDetailsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
+    </>
   );
 }

@@ -1,18 +1,12 @@
 'use client';
 
-import {
-  bikeTypeConstant,
-  cruiselMotorcyclesConstant,
-  sportsBikeConstant,
-  standardBikeConstant,
-  touringMotorcyclesConstant,
-} from 'constant/BikeTypeConstant';
+import { newBikeConstant, oldBikeConstant, bikeTypeConstant } from 'constant/OldAndNewBikesConstant';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 export default function BrowseByType() {
-  const [selectedCategory, setSelectedCategory] = useState('Standard Bike'); // Initial state
+  const [selectedCategory, setSelectedCategory] = useState('New Bike'); // Initial state
   const [activeLink, setActiveLink] = useState(bikeTypeConstant[0]?.title);
   const router = useRouter();
 
@@ -23,14 +17,10 @@ export default function BrowseByType() {
 
   const getCardsForCategory = (category: string) => {
     switch (category) {
-      case 'Standard Bike':
-        return standardBikeConstant;
-      case 'Sports Bike':
-        return sportsBikeConstant;
-      case 'Cruiser Motorcycles':
-        return cruiselMotorcyclesConstant;
-      case 'Touring Motorcycles':
-        return touringMotorcyclesConstant;
+      case 'New Bike':
+        return newBikeConstant;
+      case 'Old Bike':
+        return oldBikeConstant;
       default:
         return [];
     }
@@ -61,14 +51,14 @@ export default function BrowseByType() {
 
       <section
         className={
-          'mx-auto mt-10 flex w-[100%] justify-around text-center md:w-[80%]'
+          'mx-auto mt-10 flex w-[100%] justify-around items-center text-center md:w-[30%]'
         }
       >
         {bikeTypeConstant.map((item, index) => (
           <div key={index} className={'flex text-xs sm:text-sm lg:text-base'}>
             <a
               className={`cursor-pointer font-semibold ${
-                activeLink === item.title ? 'text-red-600' : ''
+                activeLink === item.title ? 'text-white bg-secondary-light px-6 py-2' : ''
               }`}
               onClick={() => handleCategoryClick(item.title)}
             >
@@ -97,7 +87,7 @@ export default function BrowseByType() {
                 <div
                   className={``}
                   style={{
-                    overflowY: item.alt === 'Sports Bike' ? 'auto' : 'hidden',
+                    overflowY: item.alt === 'New Bike' ? 'auto' : 'hidden',
                   }}
                 >
                   <Image

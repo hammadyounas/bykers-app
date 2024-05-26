@@ -16,7 +16,7 @@ export default function GridView({ children }: { children: React.ReactNode }) {
     <div className='flex h-screen'>
       <div
         className={`${
-          isMenuOpen ? "block h-screen" : "hidden lg:block"
+          isMenuOpen ? "block h-screen" : "hidden lg:block z-10"
         } bg-white h-full overflow-y-auto w-full lg:w-[20%] shadow-md`}
       >
         <div className="flex justify-center items-center xl:mt-16 lg:mt-10 mt-16 px-4">

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Dropdown from "@/components/ui/Dropdown";
 import Link from "next/link";
 import ViewBikesData from "./ViewBikesData";
-import GridView from "@/components/ui/GridView";
 import Title from "@/components/ui/Title";
 
 export default function ViewBikes() {
@@ -13,7 +12,7 @@ export default function ViewBikes() {
     { value: "new-bikes", label: "New Bikes" },
   ];
   return (
-    <GridView>
+    <>
     <div className="flex min-h-screen flex-col justify-center py-20 max-lg:flex-col pt-10 mx-auto bg-white shadow-md w-[95%] items-center lg:w-[100%] lg:p-5 p-2">
       <Title title="Admin Dashboard" />
       <div className="mt-10 mx-auto flex bg-white shadow-md w-[95%] flex-col items-center justify-center  max-lg:flex-col lg:w-[100%] lg:p-5 p-2">
@@ -50,6 +49,6 @@ export default function ViewBikes() {
         <ViewBikesData />
       </div>
     </div>
-    </GridView>
+    </>
   );
 }

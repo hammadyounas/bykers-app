@@ -1,14 +1,15 @@
 import React from "react";
 
 import ViewBikes from "@/components/pages/Admin/ViewBikes/ViewBikes";
+import GridView from "@/components/ui/GridView";
 
 export default function viewBikes() {
   return (
-    <div className="h-[100vh] overflow-y-hidden">
+    <GridView>
         <ViewBikes />
       {/* <div className="-mt-10">
         <Footer />
       </div> */}
-    </div>
+    </GridView>
   );
 }

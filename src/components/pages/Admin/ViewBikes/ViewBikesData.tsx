@@ -35,7 +35,7 @@ const ViewBikesData: React.FC = () => {
   };
 
   return (
-    <div className="sm:w-full w-full mx-auto overflow-x-auto">
+    <div className="sm:w-full w-full mx-auto">
       <div className="w-full">
         <ul className="flex justify-between items-center mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
           <li className="w-1/5 border-t lg:py-6 py-2 px-1">Title</li>

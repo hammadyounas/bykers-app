@@ -213,7 +213,7 @@ export default function BikeDetailsPage() {
         <div>
           <div className="relative mx-3 bg-white p-2 sm:mx-10 mt-20 sm:p-10 lg:w-[100%]">
             <div className="mx-auto lg:w-[70%]">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col sm:flex-row justify-between items-center">
                 <h1 className=" text-base font-semibold text-black sm:text-lg lg:text-2xl">
                   {bike.title}
                 </h1>

@@ -9,5 +9,5 @@ type FieldConfig = {
     { name: 'email', type: 'email', label: 'Email' },
     { name: 'PhoneNo', type: 'text', label: 'Phone No' },
     { name: 'description', type: 'textarea', label: 'Description' },
-    { name: 'want a free ride', type: 'checkbox', label: 'Do you want a free ride?' },
+    { name: 'want a free ride', type: 'checkbox', label: 'Do you want to get a free ride?' },
   ];

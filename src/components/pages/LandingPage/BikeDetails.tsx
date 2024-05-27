@@ -213,9 +213,19 @@ export default function BikeDetailsPage() {
         <div>
           <div className="relative mx-3 bg-white p-2 sm:mx-10 mt-20 sm:p-10 lg:w-[100%]">
             <div className="mx-auto lg:w-[70%]">
-              <h1 className=" text-base font-semibold text-black sm:text-lg lg:text-2xl">
-                {bike.title}
-              </h1>
+              <div className="flex justify-between items-center">
+                <h1 className=" text-base font-semibold text-black sm:text-lg lg:text-2xl">
+                  {bike.title}
+                </h1>
+                {/* buy a bike */}
+                <div className="">
+                  <Link href={"/buyBikes"}>
+                    <p className="bg-secondary-light text-white px-6 py-1 rounded font-medium">
+                      Buy A Bike
+                    </p>
+                  </Link>
+                </div>
+              </div>
             </div>
             <div className="mx-auto mt-5 flex border border-gray-300 p-2 max-lg:flex-col sm:p-10 lg:w-[70%]">
               <div className="sm:mt-10">

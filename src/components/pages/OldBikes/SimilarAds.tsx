@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function SimilarAds() {
   return (
-    <div className="mx-auto w-[95%] md:w-[90%] lg:w-[80%] xl:w-[60%]">
+    <div className="mx-auto w-[95%] md:w-[90%] lg:w-[80%] xl:w-[70%]">
       <h1 className="text-lg font-medium text-gray-800 sm:text-xl lg:text-2xl">
         SIMILAR ADS
       </h1>

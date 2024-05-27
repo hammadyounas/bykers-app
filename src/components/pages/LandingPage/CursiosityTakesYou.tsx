@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import React from 'react';
+import Image from "next/image";
+import React from "react";
 
 export default function CursiosityTakesYou() {
   return (
@@ -7,14 +7,14 @@ export default function CursiosityTakesYou() {
       className="sm:h-[70vh]"
       style={{
         backgroundImage: "url('/assets/Images/bg2.webp')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <div
         className="flex size-full items-center justify-between  px-5 max-md:flex-col max-sm:pt-16 sm:px-10 lg:px-20"
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
         }}
       >
         <div className="max-sm:-pt-10 md:w-[50%]">

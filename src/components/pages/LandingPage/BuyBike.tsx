@@ -42,19 +42,23 @@ export default function BuyBike() {
 
   return (
     <>
-      <div className="flex max-md:flex-col w-full justify-between lg:pt-32 sm:pt-20 xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
-        <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col  lg:w-[40%] w-full">
+      <div className="flex max-lg:flex-col w-full justify-between lg:pt-32 sm:pt-20 xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
+        <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col xl:w-[60%] lg:w-[70%] w-full">
           {/* Display bike details */}
+          
           {newBikeConstant.slice(0, 1).map((bike, index) => (
             <div
               key={index}
-              className="mt-5 xl:w-[70%] md:w-[90%] w-full sm:mt-5 lg:text-base sm:text-sm text-xs mx-auto"
+              className="mt-5 xl:w-[90%] md:w-[90%] w-full sm:mt-0 lg:text-base sm:text-sm text-xs mx-auto"
             >
-              <h1 className="text-xl font-bold text-red-600 sm:text-2xl lg:text-3xl mb-5">
+              <h1 className="text-xl font-bold text-red-600 sm:text-2xl lg:text-3xl">
                 Specifications
               </h1>
-              <div className="mt-5 grid grid-cols-2 ">
-                <div className="col-span-2  w-full md:pr-4">
+              <div>
+                <img src={bike.src[0]} alt={bike.title} className="w-[90%]" />
+              </div>
+              <div className="mt-5 grid grid-cols-2">
+                <div className="col-span-2  w-full xl:col-span-1 md:pr-8">
                   <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">Title</p>
                     <p className="max-lg:text-sm max-md:text-xs">
@@ -87,7 +91,10 @@ export default function BuyBike() {
                       {bike.displacement}
                     </p>
                   </div>
-                  <div className="flex justify-between border-b-2 py-2">
+                  
+                </div>
+                <div className="col-span-2  w-full xl:col-span-1 md:pr-4">
+                <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">
                       Horse Power
                     </p>
@@ -123,13 +130,13 @@ export default function BuyBike() {
                     </p>
                     <p className="max-lg:text-sm">Lorem ipsum</p>
                   </div>
-                </div>
+        </div>
               </div>
             </div>
           ))}
           {/* Add other bike details as needed */}
         </div>
-        <div className="mx-auto flex flex-col max-lg:pt-5 max-md:pt-10 max-md:flex-col lg:w-[60%] w-full">
+        <div className="mx-auto flex flex-col max-lg:pt-5 max-md:pt-10 max-lg:flex-col xl:w-[40%] lg:w-[60%] w-full">
           <h1 className="text-xl font-bold text-red-600 sm:text-2xl lg:text-3xl">
             Contact Us For Buy Bike
           </h1>
@@ -138,7 +145,7 @@ export default function BuyBike() {
             <form className="-mx-4 flex  flex-wrap text-xs sm:text-sm lg:text-base xl:w-[90%]">
               {BuyBikesConstant.map((item) => (
                 <div
-                  className="mb-4 w-full px-4 xl:w-1/2 md:w-full sm:w-1/2"
+                  className="mb-4 w-full px-4  lg:w-full sm:w-1/2"
                   key={item.name}
                 >
                   {renderField(item)}

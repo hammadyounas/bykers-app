@@ -45,7 +45,7 @@ export default function BuyBike() {
       <div className="flex max-lg:flex-col w-full justify-between lg:pt-32 sm:pt-20 xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
         <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col xl:w-[60%] lg:w-[70%] w-full">
           {/* Display bike details */}
-          
+
           {newBikeConstant.slice(0, 1).map((bike, index) => (
             <div
               key={index}
@@ -91,10 +91,10 @@ export default function BuyBike() {
                       {bike.displacement}
                     </p>
                   </div>
-                  
+
                 </div>
                 <div className="col-span-2  w-full xl:col-span-1 md:pr-4">
-                <div className="flex justify-between border-b-2 py-2">
+                  <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">
                       Horse Power
                     </p>
@@ -130,7 +130,7 @@ export default function BuyBike() {
                     </p>
                     <p className="max-lg:text-sm">Lorem ipsum</p>
                   </div>
-        </div>
+                </div>
               </div>
             </div>
           ))}

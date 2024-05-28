@@ -1,6 +1,7 @@
 import PaginationUI from "@/components/ui/PaginationUI";
 import { queriesData } from "constant/QuriesDataConstant";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -9,6 +10,7 @@ const QueriesData: React.FC = () => {
     new Array(queriesData.length).fill(false)
   );
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
 
   const toggleDropdown = (index: number) => {
     setDropdownsVisible((prev) => {
@@ -24,28 +26,29 @@ const QueriesData: React.FC = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
-  //   const handleItemClick = (bike: any) => {
-  //     if (bike.type === "New") {
-  //       router.push(`/newBikes`);
-  //     } else if (bike.type === "Old") {
-  //       router.push(`/oldBikes`);
-  //     }
-  //   };
+  const handleItemClick = () => {
+      router.push(`/admin/queriesDetails`);
+  };
 
   return (
     <div className="sm:w-full w-full mx-auto overflow-x-auto">
       <div className="w-full">
         <ul className="flex justify-between items-center  mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
+          <div className="flex justify-between items-center w-full">
           <li className="w-1/6 border-t lg:py-6 py-2 px-1">Name</li>
           <li className="max-sm:hidden w-1/6 border-t lg:py-6 py-2 px-1">Email</li>
           <li className="max-sm:hidden w-1/6 border-t lg:py-6 py-2 px-1">Contact</li>
           <li className=" sm:w-1/3 w-1/2 border-t lg:py-6 py-2 px-1">
             Description
           </li>
-          <li className="w-1/6 border-t lg:py-6 py-2 px-1 text-center">
+          <li className="w-1/6 border-t lg:py-6 px-1 py-2 text-center">
+            Status
+          </li>
+          <li className="w-1/6 border-t lg:py-6 px-1 py-2 text-center">
             Free Ride
           </li>
-          <li className="w-[10%] border-t lg:py-6 py-2 px-1 text-center">
+          </div>
+          <li className="w-[10%] border-t lg:py-6 px-1 py-2 text-center">
             Action
           </li>
         </ul>
@@ -54,22 +57,29 @@ const QueriesData: React.FC = () => {
         {currentData.map((bike, index: number) => (
           <ul
             key={index}
-            className="flex items-center sm:justify-center justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
-            // onClick={() => handleItemClick(bike)}
+            className="flex items-center sm:justify-center border-t justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
+           
           >
-            <li className="w-1/6 border-t lg:py-6 px-1 py-2">{bike.name}</li>
-            <li className="max-sm:hidden w-1/6 border-t lg:py-6 px-1 py-2">{bike.email}</li>
-            <li className="max-sm:hidden w-1/6 border-t lg:py-6 px-1 py-2">{bike.contact}</li>
-            <li className="sm:w-1/3 w-1/2 border-t lg:py-6 px-1 py-2">
+            <div className="flex w-full items-center justify-between" onClick={() => handleItemClick()}>
+            <li className="w-1/6  lg:py-6 px-1 py-2">{bike.name}</li>
+            <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2">{bike.email}</li>
+            <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2">{bike.contact}</li>
+            <li className="sm:w-1/3 w-1/2 lg:py-6 px-1 py-2">
               {bike.description}
             </li>
             <li
-              className={`w-1/6 border-t lg:py-1 text-center py-1 px-1 rounded-full font-semibold ${bike.freeRide === "Yes" ? "text-green-600" : "text-red-600"}`}
+              className={`w-1/6  text-center lg:py-6 px-1 py-2  font-semibold ${bike.status === "Resolved" ? "text-green-600" : "text-orange-600"}`}
+            >
+              {bike.status}
+            </li>
+            <li
+              className={`w-1/6  text-center lg:py-6 px-1 py-2  font-semibold ${bike.freeRide === "Yes" ? "text-green-600" : "text-red-600"}`}
             >
               {bike.freeRide}
             </li>
+            </div>
             <li
-              className="relative w-[10%] border-t lg:py-6 px-1 py-2 cursor-pointer text-center"
+              className="relative w-[10%] lg:py-6 px-1 py-2 cursor-pointer text-center"
               onClick={() => toggleDropdown(index)}
             >
               <i className="fa-solid fa-ellipsis-vertical lg:text-lg"></i>

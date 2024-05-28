@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="fixed left-0 top-0 z-50 w-full bg-white px-5 lg:px-10">
         <div className="container flex w-full items-center justify-between">
           {/* Left Side */}
-          <div className="flex w-[60%] items-center max-xl:w-[85%] sm:mx-auto sm:justify-center xl:w-[40%]">
+          <div className="flex w-[60%] items-center max-xl:w-[85%] sm:mx-auto sm:justify-center xl:w-[50%]">
             {/* Logo */}
             <div className={`${menu ? 'hidden' : 'lg:block '}`}>
               <Link href="/" className="flex items-center">

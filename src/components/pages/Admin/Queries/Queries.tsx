@@ -7,8 +7,9 @@ import Title from "@/components/ui/Title";
 export default function Queries() {
   const [selectedTypes, setSelectedTypes] = useState<string>("");
   const allTypes = [
-    { value: "old-bikes", label: "Old Bikes" },
-    { value: "new-bikes", label: "New Bikes" },
+    { value: "resolved", label: "Resolved" },
+    { value: "pending", label: "Pending" },
+    { value: "cancelled", label: "Cancelled" },
   ];
   return (
     <div className="flex min-h-screen flex-col justify-center py-20 max-lg:flex-col pt-10 mx-auto bg-white shadow-md w-[95%] items-center lg:w-[100%] lg:p-5 p-2">

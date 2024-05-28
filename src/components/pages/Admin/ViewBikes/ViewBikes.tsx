@@ -17,7 +17,7 @@ export default function ViewBikes() {
       <Title title="Admin Dashboard" />
       <div className="mt-10 mx-auto flex bg-white shadow-md w-[95%] flex-col items-center justify-center  max-lg:flex-col lg:w-[100%] lg:p-5 p-2">
         <div className="flex max-sm:flex-col justify-between items-center w-full">
-          <div className="lg:w-[20%] w-[40%] max-sm:mb-2">
+          <div className="lg:w-[20%] sm:w-[40%] w-full max-sm:text-center max-sm:mb-2">
             <h1 className="sm:text-base text-sm font-medium text-gray-800 lg:text-xl">
               View Bike Details
             </h1>

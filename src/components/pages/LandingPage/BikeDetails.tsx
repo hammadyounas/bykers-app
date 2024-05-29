@@ -29,7 +29,7 @@ export default function BikeDetailsPage() {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
   }
 
-  const SampleNextArrow: React.FC<ArrowProps> = ({ onClick }) => (
+   const SampleNextArrow: React.FC<ArrowProps> = ({ onClick }) => (
     <button
       className="absolute right-0 top-1/2 z-10 flex -translate-y-2/3 items-center bg-gray-300 text-2xl font-bold text-red-600 opacity-60 lg:text-3xl"
       onClick={onClick}
@@ -213,7 +213,7 @@ export default function BikeDetailsPage() {
         <div>
           <div className="relative mx-3 bg-white p-2 sm:mx-10 mt-20 sm:p-10 lg:w-[100%]">
             <div className="mx-auto lg:w-[70%]">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col sm:flex-row justify-between items-center">
                 <h1 className=" text-base font-semibold text-black sm:text-lg lg:text-2xl">
                   {bike.title}
                 </h1>
@@ -401,3 +401,4 @@ export default function BikeDetailsPage() {
     </>
   );
 }
+

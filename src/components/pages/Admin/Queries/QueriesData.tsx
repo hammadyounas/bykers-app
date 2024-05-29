@@ -37,9 +37,9 @@ const QueriesData: React.FC = () => {
       <div className="w-full">
         <ul className="flex justify-between items-center  mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
           <li className="w-1/6 border-t lg:py-6 py-2 px-1">Name</li>
-          <li className="w-1/6 border-t lg:py-6 py-2 px-1">Email</li>
-          <li className="w-1/6 border-t lg:py-6 py-2 px-1">Contact</li>
-          <li className="max-sm:hidden w-1/3 border-t lg:py-6 py-2 px-1">
+          <li className="max-sm:hidden w-1/6 border-t lg:py-6 py-2 px-1">Email</li>
+          <li className="max-sm:hidden w-1/6 border-t lg:py-6 py-2 px-1">Contact</li>
+          <li className=" sm:w-1/3 w-1/2 border-t lg:py-6 py-2 px-1">
             Description
           </li>
           <li className="w-1/6 border-t lg:py-6 py-2 px-1 text-center">
@@ -54,13 +54,13 @@ const QueriesData: React.FC = () => {
         {currentData.map((bike, index: number) => (
           <ul
             key={index}
-            className="flex items-center justify-center lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
+            className="flex items-center sm:justify-center justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
             // onClick={() => handleItemClick(bike)}
           >
             <li className="w-1/6 border-t lg:py-6 px-1 py-2">{bike.name}</li>
-            <li className="w-1/6 border-t lg:py-6 px-1 py-2">{bike.email}</li>
-            <li className="w-1/6 border-t lg:py-6 px-1 py-2">{bike.contact}</li>
-            <li className="max-sm:hidden w-1/3 border-t lg:py-6 px-1 py-2">
+            <li className="max-sm:hidden w-1/6 border-t lg:py-6 px-1 py-2">{bike.email}</li>
+            <li className="max-sm:hidden w-1/6 border-t lg:py-6 px-1 py-2">{bike.contact}</li>
+            <li className="sm:w-1/3 w-1/2 border-t lg:py-6 px-1 py-2">
               {bike.description}
             </li>
             <li

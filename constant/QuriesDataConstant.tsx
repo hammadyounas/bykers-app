@@ -3,6 +3,7 @@ interface Queries {
     email: string;
     contact: string;
     description: string;
+    status: string;
     freeRide: string;
   }
   
@@ -12,18 +13,21 @@ interface Queries {
         email: 'dummmy@gmail.com',
         contact: '123456789',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+        status: 'Resolved',
         freeRide: 'Yes',
       },
       {
         name: 'Rocio J. Parsons',
         email: 'dummmy@gmail.com',
         contact: '123456789',
+        status: 'Pending',
         description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         freeRide: 'No',
       },
       {
         name: 'Leslie C. Wilbanks',
         email: 'dummmy@gmail.com',
+        status: 'Pending',
         contact: '123456789',
         description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         freeRide: 'Yes',
@@ -32,6 +36,7 @@ interface Queries {
         name: 'Sally W. Flores',
         email: 'dummmy@gmail.com',
         contact: '123456789',
+        status: 'Resolved',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         freeRide: 'Yes',
       },
@@ -39,6 +44,7 @@ interface Queries {
         name: 'Connie J. Ramirez',
         email: 'dummmy@gmail.com',
         contact: '123456789',
+        status: 'Resolved',
         description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod incididunt ut labore et dolore magna aliqua',
         freeRide: 'No',
       },
@@ -46,6 +52,7 @@ interface Queries {
         name: 'Camilla C. Nelson',
         email: 'dummmy@gmail.com',
         contact: '123456789',
+        status: 'Resolved',
         description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         freeRide: 'No',
       },
@@ -53,6 +60,7 @@ interface Queries {
         name: 'Steven S. Coleman',
         email: 'dummmy@gmail.com',
         contact: '123456789',
+        status: 'Pending',
         description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor labore et dolore magna aliqua',
         freeRide: 'Yes',
       },
@@ -60,6 +68,7 @@ interface Queries {
         name: 'Mona S. Brown',
         email: 'dummmy@gmail.com',
         contact: '123456789',
+        status: 'Resolved',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
         freeRide: 'Yes',
       },
@@ -67,6 +76,7 @@ interface Queries {
         name: 'Amanda J. Toll',
         email: 'dummmy@gmail.com',
         contact: '123456789',
+        status: 'Resolved',
         description: '"Lorem ipsum dolor sit amet, consectetur adipiscing incididunt ut labore et dolore magna aliqua',
         freeRide: 'No',
       },

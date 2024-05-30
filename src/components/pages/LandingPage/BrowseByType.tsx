@@ -61,7 +61,7 @@ export default function BrowseByType() {
         {bikeTypeConstant.map((item, index) => (
           <div key={index} className={"flex text-xs sm:text-sm lg:text-base"}>
             <a
-              className={`cursor-pointer font-semibold ${
+              className={`cursor-pointer font-semibold  px-6 py-2 ${
                 activeLink === item.title
                   ? "text-white bg-secondary-light px-6 py-2"
                   : ""

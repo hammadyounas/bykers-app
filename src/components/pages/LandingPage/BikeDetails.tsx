@@ -29,7 +29,7 @@ export default function BikeDetailsPage() {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
   }
 
-   const SampleNextArrow: React.FC<ArrowProps> = ({ onClick }) => (
+  const SampleNextArrow: React.FC<ArrowProps> = ({ onClick }) => (
     <button
       className="absolute right-0 top-1/2 z-10 flex -translate-y-2/3 items-center bg-gray-300 text-2xl font-bold text-red-600 opacity-60 lg:text-3xl"
       onClick={onClick}
@@ -401,4 +401,3 @@ export default function BikeDetailsPage() {
     </>
   );
 }
-

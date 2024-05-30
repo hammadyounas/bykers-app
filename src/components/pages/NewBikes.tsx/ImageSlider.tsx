@@ -40,13 +40,13 @@ const ImageSlider = () => {
     beforeChange: (_current: number, next: number) => setCurrentSlide(next),
   };
 
-  const images = [
-    '/assets/Images/bike10.jpg',
-    '/assets/Images/bike11.jpg',
-    '/assets/Images/bike12.jpg',
-    '/assets/Images/bike2.png',
-    '/assets/Images/bike6.png',
-  ];
+        const images = [
+          '/assets/Images/bike10.jpg',
+          '/assets/Images/bike11.jpg',
+          '/assets/Images/bike12.jpg',
+          '/assets/Images/bike2.png',
+          '/assets/Images/bike6.png',
+        ];
 
   const handleThumbnailClick = (index: number) => {
     setCurrentSlide(index);

@@ -23,7 +23,7 @@ export const SellBikesConstant: FieldConfig[] = [
     { name: 'images', type: 'file', label: 'Images' },
   ]
 
-  interface Bike {
+  export  interface Bike {
     name: string;
     mobileNo: string;
     email: string;

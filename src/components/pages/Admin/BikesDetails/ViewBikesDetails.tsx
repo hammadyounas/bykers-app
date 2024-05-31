@@ -41,6 +41,7 @@ export default function ViewBikesDetails() {
     if (file) {
       reader.readAsDataURL(file);
     }
+    console.log(customImage)
   };
 
   const handleSaveClick = () => {

@@ -3,6 +3,8 @@ import {
   AddOldBikesConstant,
 } from 'constant/AddBikeConstant';
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Dropdown from '@/components/ui/Dropdown';
 
@@ -15,6 +17,13 @@ export default function AddBikes() {
     { value: 'new', label: 'New' },
     { value: 'old', label: 'Old' },
   ];
+
+  const handleSubmit = async () => {
+    toast.success(`Admin will contact you soon.`, {
+      position: "top-center",
+    });
+  }
+
 
   const renderField = (item: { name: string; type: string; label: string }) => {
     switch (item.type) {
@@ -32,6 +41,7 @@ export default function AddBikes() {
           <textarea
             className="mt-2 h-20 w-full resize-none rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
             name={item.name}
+            required
           />
         );
       case 'file':
@@ -41,6 +51,7 @@ export default function AddBikes() {
             type="file"
             name={item.name}
             multiple
+            required
           />
         );
       default:
@@ -49,6 +60,7 @@ export default function AddBikes() {
             className="mt-2 w-full rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
             type={item.type}
             name={item.name}
+            required
           />
         );
     }
@@ -56,6 +68,7 @@ export default function AddBikes() {
 
   return (
     <>
+    <ToastContainer />
       <div className="mx-auto flex w-[95%] flex-col items-center justify-center pt-20 max-lg:flex-col sm:w-[90%] sm:pt-32 lg:w-[70%] xl:w-[50%]">
         <h1 className="text-xl font-bold text-red-600 sm:text-2xl lg:text-3xl">
           Add Bike Details
@@ -77,7 +90,7 @@ export default function AddBikes() {
         </div>
 
         <div className="mt-5 w-[100%] sm:mt-10">
-          <form className="-mx-4 flex flex-wrap text-xs sm:text-sm lg:text-base">
+          <form className="-mx-4 flex flex-wrap text-xs sm:text-sm lg:text-base" onSubmit={handleSubmit}>
             {(formType === 'new' ? AddBikesConstant : AddOldBikesConstant).map(
               (item) => (
                 <div className="mb-4 w-full px-4 sm:w-1/2" key={item.name}>

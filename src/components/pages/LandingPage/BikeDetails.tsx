@@ -245,12 +245,12 @@ export default function BikeDetailsPage() {
                   {bike.src.map((image: any, index: any) => (
                     <div
                       key={index}
-                      className=" h-[55vh] w-full max-[425px]:h-[35vh] sm:h-[40vh]"
+                      className=" h-[55vh] max-[425px]:h-[35vh] sm:h-[40vh]"
                     >
                       <img
                         src={image}
                         alt={`Slide ${index}`}
-                        className="size-full object-cover"
+                        className="size-full"
                       />
                     </div>
                   ))}

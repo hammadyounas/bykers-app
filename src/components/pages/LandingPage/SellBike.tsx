@@ -21,7 +21,7 @@ export default function SellBike() {
                         <textarea
                             className="mt-2 h-28 w-full resize-none rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
                             name={item.name}
-                            required
+                            // required
                         />
                     </>
                 );
@@ -53,7 +53,7 @@ export default function SellBike() {
                             className="mt-2 w-full rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
                             type={item.type}
                             name={item.name}
-                            required
+                            // required
                         />
                     </>
                 );

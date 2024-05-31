@@ -1,4 +1,4 @@
-interface Queries {
+export interface Queries {
     name: string;
     email: string;
     contact: string;

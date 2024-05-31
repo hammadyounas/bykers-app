@@ -1,13 +1,13 @@
 import PaginationUI from "@/components/ui/PaginationUI";
-import { bikesData } from "constant/viewBikeData";
+import { sellBikeDataConstant } from "constant/SellBikeConstant";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 const ITEMS_PER_PAGE = 8;
 
-const ViewBikesData: React.FC = () => {
+const SellBikeQueriesData: React.FC = () => {
   const [dropdownsVisible, setDropdownsVisible] = useState<boolean[]>(
-    new Array(bikesData.length).fill(false)
+    new Array(sellBikeDataConstant.length).fill(false)
   );
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
@@ -20,18 +20,15 @@ const ViewBikesData: React.FC = () => {
     });
   };
 
-  const totalPages = Math.ceil(bikesData.length / ITEMS_PER_PAGE);
-  const currentData = bikesData.slice(
+  const totalPages = Math.ceil(sellBikeDataConstant.length / ITEMS_PER_PAGE);
+  const currentData = sellBikeDataConstant.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
 
   const handleItemClick = (bike: any) => {
-    if (bike.type === "New") {
-      router.push(`/admin/viewBikes/details`);
-    } else if (bike.type === "Old") {
-      router.push(`/admin/viewBikes/details`);
-    }
+      router.push(`/admin/sellBikeQueriesDetails`);
+      console.log(bike)
   };
 
   return (
@@ -39,19 +36,20 @@ const ViewBikesData: React.FC = () => {
       <div className="w-full">
         <ul className="flex justify-between border-t items-center mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
           <div className="flex justify-between items-center w-full">
-          <li className="w-1/5 lg:py-6 py-2 px-1">Title</li>
+          <li className="sm:w-1/5 w-1/5 lg:py-6 py-2 px-1">
+            Seller Name
+          </li>
+          <li className="max-sm:hidden w-1/6  lg:py-6 py-2 px-1">
+            Contact No
+          </li>
+          <li className="w-1/5 lg:py-6 py-2 px-1">Bike Title</li>
           <li className="w-1/4 lg:py-6 py-2 px-1">Model</li>
           <li className="w-1/6 lg:py-6 py-2 px-1">Price</li>
           <li className="max-sm:hidden w-1/4 border-t lg:py-6 py-2 px-1">
             Engine
           </li>
-          <li className="sm:w-1/5 w-1/5 lg:py-6 py-2 px-1">
-            Displacement
-          </li>
-          <li className="max-sm:hidden w-1/6  lg:py-6 py-2 px-1">
-            Petrol Capacity
-          </li>
-          <li className="w-1/6 lg:py-6 py-2 px-1 text-center">Type</li>
+          <li className="w-1/6 lg:py-6 py-2 px-1 text-center">Year</li>
+          <li className="w-1/6 lg:py-6 py-2 px-1 text-center">Status</li>
           </div>
           <li className="w-[10%] lg:py-6 py-2 px-1 text-center">Action</li>
         </ul>
@@ -60,26 +58,31 @@ const ViewBikesData: React.FC = () => {
         {currentData.map((bike, index: number) => (
           <ul
             key={index}
-            className="flex  lg:text-sm border-t sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
+            className="flex capitalize lg:text-sm border-t sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
             
           >
             <div className="flex w-full items-center justify-between" onClick={() => handleItemClick(bike)}>
+            <li className="sm:w-1/5 w-1/5 lg:py-6 px-1 py-2">
+              {bike.name}
+            </li>
+            <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2 ">
+              {bike.mobileNo}
+            </li>
             <li className="w-1/5 lg:py-6 px-1 py-2">{bike.title}</li>
             <li className="w-1/4 lg:py-6 px-1 py-2">{bike.model}</li>
             <li className="w-1/6 lg:py-6 px-1 py-2">{bike.price}</li>
             <li className="max-sm:hidden w-1/4 lg:py-6 px-1 py-2">
               {bike.engine}
             </li>
-            <li className="sm:w-1/5 w-1/5 lg:py-6 px-1 py-2">
-              {bike.displacement}
-            </li>
-            <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2 ">
-              {bike.petrolCapacity}
+            <li
+              className={`w-1/6 lg:py-1 py-1 px-1 rounded-full text-center`}
+            >
+              {bike.year}
             </li>
             <li
-              className={`w-1/6 lg:py-1 py-1 px-1 rounded-full font-semibold text-center ${bike.type === "New" ? "text-green-600" : "text-red-600"}`}
+              className={`w-1/6 lg:py-1 py-1 px-1 rounded-full text-center capitalize ${bike.status === "Resolved" ? "text-green-600" : bike.status === "Pending" ? "text-orange-600" : "text-red-600"}`}
             >
-              {bike.type}
+              {bike.status}
             </li>
             </div>
             <li className="relative w-[10%] lg:py-6 px-1 py-2 cursor-pointer text-center"
@@ -116,4 +119,4 @@ const ViewBikesData: React.FC = () => {
   );
 };
 
-export default ViewBikesData;
+export default SellBikeQueriesData;

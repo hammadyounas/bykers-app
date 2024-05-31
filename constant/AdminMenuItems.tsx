@@ -11,7 +11,7 @@ export const MenuItemsConstant: MenuItems[] = [
         link: "/admin/viewBikes"
     },
     {
-        title: 'Sale Bikes Queries',
+        title: 'Sell Bikes Queries',
         icon: 'fa-motorcycle',
         link: "/admin/sellBikeQuries"
     },

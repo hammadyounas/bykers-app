@@ -47,22 +47,16 @@ const SellBikeQueriesData: React.FC = () => {
   };
 
   const handleStatusChange = (index: number, status: string) => {
-    setLocalData((prevData) => {
-      const newData = [...prevData];
-      if (newData[index]) {
-        // Ensure that the object at the specified index exists before updating its status
-        newData[index] = {
-          ...newData[index],
-          status: status,
-        };
-      }
-      return newData;
-    });
-    
-    setEditedStatusIndex(index);
+    const newData = [...localData]; // Create a copy of localData
+    newData[index].status = status; // Update the status of the bike at the specified index
+    setLocalData(newData); // Update the localData state with the updated data
+  
+    setEditedStatusIndex(index); // Set the editedStatusIndex to the current index
     setOpenDropdownIndex(null); // Close the dropdown when an item is selected
-    console.log(openDropdownIndex, localData)
   };
+
+  
+  
 
   
   const handleSaveClick = () => {

@@ -1,8 +1,24 @@
 import { BuyBikesConstant } from "constant/BuyBikeConstant";
 import { newBikeConstant } from "constant/OldAndNewBikesConstant";
-import React from "react";
+import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function BuyBike() {
+  const images = [
+    '/assets/Images/bike1.png',
+    '/assets/Images/bike14.jpg',
+    '/assets/Images/bike12.jpg',
+    '/assets/Images/bike2.png',
+    '/assets/Images/bike6.png',
+  ];
+
+  const handleThumbnailClick = (index: any) => {
+    setCurrentSlide(index);
+  };
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const renderField = (item: { name: string; type: string; label: string }) => {
     switch (item.type) {
       case "textarea":
@@ -12,6 +28,7 @@ export default function BuyBike() {
             <textarea
               className="mt-2 h-20 w-full resize-none rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
               name={item.name}
+              required
             />
           </>
         );
@@ -34,14 +51,22 @@ export default function BuyBike() {
               className="mt-2 w-full rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
               type={item.type}
               name={item.name}
+              required
             />
           </>
         );
     }
   };
 
+  const handleSubmit = async () => {
+    toast.success(`Admin will contact you soon.`, {
+      position: "top-center",
+    });
+  }
+
   return (
     <>
+      <ToastContainer />
       <div className="flex max-lg:flex-col w-full justify-between lg:pt-32 sm:pt-20 xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
         <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col xl:w-[60%] lg:w-[70%] w-full">
           {/* Display bike details */}
@@ -54,9 +79,31 @@ export default function BuyBike() {
               <h1 className="text-xl font-bold text-red-600 sm:text-2xl lg:text-3xl">
                 Specifications
               </h1>
-              <div>
-                <img src={bike.src[0]} alt={bike.title} className="w-[90%]" />
+              <div className="flex flex-col justify-center items-center w-full mt-10">
+                <div className="h-[55vh] max-[425px]:h-[35vh] sm:h-[50vh]">
+                  <img
+                    src={images[currentSlide]}
+                    alt={`image ${currentSlide}`}
+                    className="size-full "
+                  />
+                </div>
+                <div className="flex mt-4">
+                  {images.map((src, index) => (
+                    <div
+                      key={index}
+                      className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? 'border-2 border-red-600' : 'border'}`}
+                      onClick={() => handleThumbnailClick(index)}
+                    >
+                      <img
+                        src={src}
+                        alt={`Thumbnail ${index}`}
+                        className="w-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
+
               <div className="mt-5 grid grid-cols-2">
                 <div className="col-span-2  w-full xl:col-span-1 md:pr-8">
                   <div className="flex justify-between border-b-2 py-2">
@@ -134,6 +181,7 @@ export default function BuyBike() {
               </div>
             </div>
           ))}
+          
           {/* Add other bike details as needed */}
         </div>
         <div className="mx-auto flex flex-col max-lg:pt-5 max-md:pt-10 max-lg:flex-col xl:w-[40%] lg:w-[60%] w-full">
@@ -142,7 +190,7 @@ export default function BuyBike() {
           </h1>
 
           <div className="mt-5 w-[100%] sm:mt-10">
-            <form className="-mx-4 flex  flex-wrap text-xs sm:text-sm lg:text-base xl:w-[90%]">
+            <form className="-mx-4 flex  flex-wrap text-xs sm:text-sm lg:text-base xl:w-[90%]" onSubmit={handleSubmit}>
               {BuyBikesConstant.map((item) => (
                 <div
                   className="mb-4 w-full px-4  lg:w-full sm:w-1/2"
@@ -154,7 +202,7 @@ export default function BuyBike() {
 
               <div className="mx-4 mt-5 w-full">
                 <button
-                  className="w-full rounded bg-secondary py-2 font-semibold text-white"
+                  className="sm:w-[20%] w-full rounded bg-secondary py-2 font-semibold text-white"
                   type="submit"
                 >
                   Submit

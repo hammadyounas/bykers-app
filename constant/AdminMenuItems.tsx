@@ -10,18 +10,18 @@ export const MenuItemsConstant: MenuItems[] = [
         icon: 'fa-eye',
         link: "/admin/viewBikes"
     },
-    // {
-    //     title: 'New Bikes',
-    //     icon: 'fa-motorcycle',
-    //     link: "/newBikes"
-    // },
+    {
+        title: 'Sale Bikes Queries',
+        icon: 'fa-motorcycle',
+        link: "/admin/sellBikeQuries"
+    },
     // {
     //     title: 'Old Bikes',
     //     icon: 'fa-person-biking',
     //     link: "/oldBikes"
     // },
     {
-        title: 'Queries',
+        title: 'Buy Bikes Queries',
         icon: 'fa-person-circle-question',
         link: "/admin/queries"
     }

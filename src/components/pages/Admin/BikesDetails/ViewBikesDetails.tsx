@@ -13,10 +13,12 @@ export default function ViewBikesDetails() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({ ...bikesData[0] });
+  const [formData, setFormData] = useState({ ...bikesData[0], image: images[0] });
+  const [customImage, setCustomImage] = useState<string | null>(null);
 
   const handleThumbnailClick = (index: any) => {
     setCurrentSlide(index);
+    setFormData({ ...formData, image: images[index] });
   };
 
   const handleEditClick = () => {
@@ -28,8 +30,21 @@ export default function ViewBikesDetails() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      setCustomImage(result);
+      setFormData({ ...formData, image: result });
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    console.log(customImage)
+  };
+
   const handleSaveClick = () => {
-    // Here you would typically send the updated data to your server
     setIsEditing(false);
   };
 
@@ -38,12 +53,12 @@ export default function ViewBikesDetails() {
       <Title title="Admin Dashboard" />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full mt-10">
         {/* left */}
-        <div className="flex flex-col justify-center items-center w-full">
+        <div className="flex flex-col items-center w-full">
           <div className="h-[55vh] w-full max-[425px]:h-[35vh] sm:h-[50vh]">
             <img
-              src={images[currentSlide]}
+              src={formData.image}
               alt={`image ${currentSlide}`}
-              className="size-full object-cover"
+              className="size-full"
             />
           </div>
           <div className="flex mt-4">
@@ -74,15 +89,41 @@ export default function ViewBikesDetails() {
                 <form>
                   {Object.entries(formData).map(([key, value]) => (
                     key !== 'title' && (
-                      <div key={key} className="flex justify-between py-2 ">
+                      <div key={key} className="flex justify-between py-2">
                         <label className="text-xs text-gray-700 lg:text-sm capitalize">{key}</label>
-                        <input
-                          type="text"
-                          name={key}
-                          value={value}
-                          onChange={handleInputChange}
-                          className="max-lg:text-sm border py-1 rounded border-secondary-light px-6"
-                        />
+                        {key === 'image' ? (
+                          <div className="flex flex-col">
+                            <input
+                              type="file"
+                              name={key}
+                              onChange={handleFileChange}
+                              className="max-lg:text-sm border py-1 rounded border-secondary-light px-6 mb-2"
+                            />
+                            <div className="flex">
+                              {images.map((src, index) => (
+                                <div
+                                  key={index}
+                                  className={`w-[20%] cursor-pointer p-1 ${formData.image === src ? 'border-2 border-red-600' : 'border'}`}
+                                  onClick={() => setFormData({ ...formData, image: src })}
+                                >
+                                  <img
+                                    src={src}
+                                    alt={`Thumbnail ${index}`}
+                                    className="w-full object-cover"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <input
+                            type="text"
+                            name={key}
+                            value={value}
+                            onChange={handleInputChange}
+                            className="max-lg:text-sm border py-1 rounded border-secondary-light px-6"
+                          />
+                        )}
                       </div>
                     )
                   ))}

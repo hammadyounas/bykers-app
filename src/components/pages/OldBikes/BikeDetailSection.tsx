@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default function BikeDetailSection({price}: {price: string}) {
+export default function BikeDetailSection({ price }: { price: string }) {
   return (
     <div className="max-sm:mx- p-2 max-lg:p-10 max-sm:p-3 lg:w-[30%] xl:w-[25%]">
       {/* price and contact detail section */}
       <div className="w-full bg-white py-3">
         <div className=" border-b p-2">
           <h1 className="text-center font-semibold text-red-600 sm:text-xl lg:text-2xl">
-            { `Price ${price}` || 'Price $10000'}
+            {`Price ${price}` || 'Price $10000'}
           </h1>
         </div>
         <div className="m-5 flex items-center justify-center bg-secondary-light p-2 text-center text-white">

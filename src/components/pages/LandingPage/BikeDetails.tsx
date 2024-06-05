@@ -1,25 +1,27 @@
 import {
   newBikeConstant,
   oldBikeConstant,
-} from "constant/OldAndNewBikesConstant";
-import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
-import Slider from "react-slick";
-import BikeDetailSection from "../OldBikes/BikeDetailSection";
-import SimilarAds from "../OldBikes/SimilarAds";
-import Link from "next/link";
-import Rating from "@/components/ui/Rating";
-import Price from "../NewBikes.tsx/Price";
-import ProsAndCons from "../NewBikes.tsx/ProsAndCons";
-import Specifications from "../NewBikes.tsx/Specifications";
-import Colors from "../NewBikes.tsx/Colors";
-import Comparison from "../NewBikes.tsx/Comparison";
-import ComparisonDropdown from "../NewBikes.tsx/ComparisonDropdown";
-import Reviews from "../NewBikes.tsx/Reviews";
-import Discussion from "../NewBikes.tsx/Discussion";
-import Faq from "../NewBikes.tsx/Faq";
-import Alternatives from "../NewBikes.tsx/Alternatives";
-import BikesAds from "../NewBikes.tsx/BikesAds";
+} from 'constant/OldAndNewBikesConstant';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useRef, useState } from 'react';
+import Slider from 'react-slick';
+
+import Rating from '@/components/ui/Rating';
+
+import Alternatives from '../NewBikes.tsx/Alternatives';
+import BikesAds from '../NewBikes.tsx/BikesAds';
+import Colors from '../NewBikes.tsx/Colors';
+import Comparison from '../NewBikes.tsx/Comparison';
+import ComparisonDropdown from '../NewBikes.tsx/ComparisonDropdown';
+import Discussion from '../NewBikes.tsx/Discussion';
+import Faq from '../NewBikes.tsx/Faq';
+import Price from '../NewBikes.tsx/Price';
+import ProsAndCons from '../NewBikes.tsx/ProsAndCons';
+import Reviews from '../NewBikes.tsx/Reviews';
+import Specifications from '../NewBikes.tsx/Specifications';
+import BikeDetailSection from '../OldBikes/BikeDetailSection';
+import SimilarAds from '../OldBikes/SimilarAds';
 
 export default function BikeDetailsPage() {
   const sliderRef = useRef<Slider>(null);
@@ -74,13 +76,12 @@ export default function BikeDetailsPage() {
   }
 
   // State to track the currently selected image
-  const [selectedImage, setSelectedImage] = useState(bike?.src[0] || "");
+  const [selectedImage] = useState(bike?.src[0] || '');
 
   // const handleImageClick = (image: any) => {
   //   // Update the selected image when any map image is clicked
   //   setSelectedImage(image);
   // };
-  console.log(setSelectedImage);
 
   if (!bike) {
     // Handle case where bike is not found
@@ -89,7 +90,7 @@ export default function BikeDetailsPage() {
 
   return (
     <>
-      {bike.type === "Old" ? (
+      {bike.type === 'Old' ? (
         <div>
           <div className="flex min-h-screen w-full justify-center bg-slate-50 max-lg:flex-col mt-20 ">
             <div className="relative mx-3 border-2 border-gray-200 bg-white p-2 sm:mx-10 sm:p-10 lg:w-[50%] xl:w-[45%]">
@@ -99,7 +100,7 @@ export default function BikeDetailsPage() {
                 </h1>
                 {/* buy a bike */}
                 <div className="">
-                  <Link href={"/buyBikes"}>
+                  <Link href={'/buyBikes'}>
                     <p className="bg-secondary-light text-white px-6 py-1 rounded font-medium">
                       Buy A Bike
                     </p>
@@ -133,7 +134,7 @@ export default function BikeDetailsPage() {
                 {bike.src.map((image: any, index: any) => (
                   <div
                     key={index}
-                    className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? "border-2 border-red-600" : "border"}`}
+                    className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? 'border-2 border-red-600' : 'border'}`}
                     onClick={() => handleThumbnailClick(index)}
                   >
                     <img
@@ -219,7 +220,7 @@ export default function BikeDetailsPage() {
                 </h1>
                 {/* buy a bike */}
                 <div className="">
-                  <Link href={"/buyBikes"}>
+                  <Link href={'/buyBikes'}>
                     <p className="bg-secondary-light text-white px-6 py-1 rounded font-medium">
                       Buy A Bike
                     </p>
@@ -259,7 +260,7 @@ export default function BikeDetailsPage() {
                   {bike.src.map((image: any, index: any) => (
                     <div
                       key={index}
-                      className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? "border-2 border-red-600" : "border"}`}
+                      className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? 'border-2 border-red-600' : 'border'}`}
                       onClick={() => handleThumbnailClick(index)}
                     >
                       <img

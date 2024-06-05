@@ -1,8 +1,6 @@
-import { BuyBikesConstant } from "constant/BuyBikeConstant";
-import { newBikeConstant } from "constant/OldAndNewBikesConstant";
-import React, { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { BuyBikesConstant } from 'constant/BuyBikeConstant';
+import { newBikeConstant } from 'constant/OldAndNewBikesConstant';
+import React, { useState } from 'react';
 
 export default function BuyBike() {
   const images = [
@@ -13,15 +11,15 @@ export default function BuyBike() {
     '/assets/Images/bike6.png',
   ];
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const handleThumbnailClick = (index: any) => {
     setCurrentSlide(index);
   };
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   const renderField = (item: { name: string; type: string; label: string }) => {
     switch (item.type) {
-      case "textarea":
+      case 'textarea':
         return (
           <>
             <label className="font-medium text-gray-700">{item.label}</label>
@@ -32,7 +30,7 @@ export default function BuyBike() {
             />
           </>
         );
-      case "checkbox":
+      case 'checkbox':
         return (
           <>
             <input
@@ -59,14 +57,14 @@ export default function BuyBike() {
   };
 
   const handleSubmit = async () => {
-    toast.success(`Admin will contact you soon.`, {
-      position: "top-center",
-    });
-  }
+    // toast.success(`Admin will contact you soon.`, {
+    //   position: 'top-center',
+    // });
+  };
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="flex max-lg:flex-col w-full justify-between lg:pt-32 sm:pt-20 xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
         <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col xl:w-[60%] lg:w-[70%] w-full">
           {/* Display bike details */}
@@ -88,7 +86,7 @@ export default function BuyBike() {
                   />
                 </div>
                 <div className="flex mt-4">
-                  {images.map((src, index) => (
+                  {images.map((src) => (
                     <div
                       key={index}
                       className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? 'border-2 border-red-600' : 'border'}`}
@@ -138,7 +136,6 @@ export default function BuyBike() {
                       {bike.displacement}
                     </p>
                   </div>
-
                 </div>
                 <div className="col-span-2  w-full xl:col-span-1 md:pr-4">
                   <div className="flex justify-between border-b-2 py-2">
@@ -181,7 +178,7 @@ export default function BuyBike() {
               </div>
             </div>
           ))}
-          
+
           {/* Add other bike details as needed */}
         </div>
         <div className="mx-auto flex flex-col max-lg:pt-5 max-md:pt-10 max-lg:flex-col xl:w-[40%] lg:w-[60%] w-full">
@@ -190,7 +187,10 @@ export default function BuyBike() {
           </h1>
 
           <div className="mt-5 w-[100%] sm:mt-10">
-            <form className="-mx-4 flex  flex-wrap text-xs sm:text-sm lg:text-base xl:w-[90%]" onSubmit={handleSubmit}>
+            <form
+              className="-mx-4 flex  flex-wrap text-xs sm:text-sm lg:text-base xl:w-[90%]"
+              onSubmit={handleSubmit}
+            >
               {BuyBikesConstant.map((item) => (
                 <div
                   className="mb-4 w-full px-4  lg:w-full sm:w-1/2"

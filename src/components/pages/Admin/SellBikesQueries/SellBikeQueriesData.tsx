@@ -1,24 +1,29 @@
-import PaginationUI from "@/components/ui/PaginationUI";
-import { sellBikeDataConstant, Bike } from "constant/SellBikeConstant";
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import type { Bike } from 'constant/SellBikeConstant';
+import { sellBikeDataConstant } from 'constant/SellBikeConstant';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+
+import PaginationUI from '@/components/ui/PaginationUI';
 
 const ITEMS_PER_PAGE = 8;
 
 const SellBikeQueriesData: React.FC = () => {
   const [dropdownsVisible, setDropdownsVisible] = useState<boolean[]>(
-    new Array(sellBikeDataConstant.length).fill(false)
+    new Array(sellBikeDataConstant.length).fill(false),
   );
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
-  const [dropdownsVisibleStatus, setDropdownsVisibleStatus] = useState<boolean[]>(
-    new Array(sellBikeDataConstant.length).fill(false)
+  const [dropdownsVisibleStatus, setDropdownsVisibleStatus] = useState<
+    boolean[]
+  >(new Array(sellBikeDataConstant.length).fill(false));
+  const [setOpenDropdownIndex] = useState<any | null>(null);
+  const [editedStatusIndex, setEditedStatusIndex] = useState<number | null>(
+    null,
   );
-  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
-  const [editedStatusIndex, setEditedStatusIndex] = useState<number | null>(null);
-  const [localData, setLocalData] = useState<any[]>(sellBikeDataConstant as Bike[]);
+  const [localData, setLocalData] = useState<any[]>(
+    sellBikeDataConstant as Bike[],
+  );
 
-  
   const toggleDropdownStatus = (index: number) => {
     setDropdownsVisibleStatus((prev) => {
       const newDropdownsVisibleStatus = new Array(prev.length).fill(false);
@@ -35,34 +40,50 @@ const SellBikeQueriesData: React.FC = () => {
     });
   };
 
-  const totalPages = Math.ceil(sellBikeDataConstant.length / ITEMS_PER_PAGE);
-  const currentData = sellBikeDataConstant.slice(
+  const totalPages = Math.ceil(localData.length / ITEMS_PER_PAGE);
+  const currentData = localData.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
-  const handleItemClick = (bike: any) => {
-      router.push(`/admin/sellBikeQueriesDetails`);
-      console.log(bike)
-  };
-
   const handleStatusChange = (index: number, status: string) => {
-    const newData = [...localData]; // Create a copy of localData
-    newData[index].status = status; // Update the status of the bike at the specified index
-    setLocalData(newData); // Update the localData state with the updated data
-  
-    setEditedStatusIndex(index); // Set the editedStatusIndex to the current index
+    setLocalData((prevData) => {
+      const newData = [...prevData];
+      if (newData[index]) {
+        // Ensure that the object at the specified index exists before updating its status
+        newData[index] = {
+          ...newData[index],
+          status,
+        };
+      }
+      return newData;
+    });
+    setEditedStatusIndex(index);
     setOpenDropdownIndex(null); // Close the dropdown when an item is selected
   };
 
-  
-  
+  const handleItemClick = (bike: any) => {
+    router.push({
+      pathname: `/admin/sellBikeQueriesDetails`,
+      query: { id: bike.id }, // Assuming each bike has a unique id
+    });
+  };
 
-  
   const handleSaveClick = () => {
-    // Here you would typically send the updated data to your server
     setEditedStatusIndex(null);
-    console.log("Status saved");
+  };
+
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'Resolved':
+        return 'text-green-600';
+      case 'Pending':
+        return 'text-orange-600';
+      case 'Cancelled':
+        return 'text-red-600';
+      default:
+        return '';
+    }
   };
 
   return (
@@ -70,19 +91,15 @@ const SellBikeQueriesData: React.FC = () => {
       <div className="w-full">
         <ul className="flex justify-between border-t items-center mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
           <div className="flex justify-between items-center w-full">
-          <li className="sm:w-1/5 w-1/5 lg:py-6 py-2 px-1">
-            Seller Name
-          </li>
-          <li className="max-sm:hidden w-1/6  lg:py-6 py-2 px-1">
-            Contact No
-          </li>
-          <li className="w-1/5 lg:py-6 py-2 px-1">Bike Title</li>
-          <li className="w-1/4 lg:py-6 py-2 px-1">Model</li>
-          <li className="w-1/6 lg:py-6 py-2 px-1">Price</li>
-          <li className="max-sm:hidden w-1/4 border-t lg:py-6 py-2 px-1">
-            Engine
-          </li>
-          <li className="w-1/6 lg:py-6 py-2 px-1 text-center">Year</li>
+            <li className="sm:w-1/5 w-1/5 lg:py-6 py-2 px-1">Seller Name</li>
+            <li className="max-sm:hidden w-1/6 lg:py-6 py-2 px-1">
+              Contact No
+            </li>
+            <li className="w-1/5 lg:py-6 py-2 px-1">Bike Title</li>
+            <li className="w-1/4 lg:py-6 py-2 px-1">Model</li>
+            <li className="w-1/6 lg:py-6 py-2 px-1">Price</li>
+            <li className="max-sm:hidden w-1/4 lg:py-6 py-2 px-1">Engine</li>
+            <li className="w-1/6 lg:py-6 py-2 px-1 text-center">Year</li>
           </div>
           <li className="w-1/6 lg:py-6 py-2 px-1 text-center">Status</li>
           <li className="w-[10%] lg:py-6 py-2 px-1 text-center">Action</li>
@@ -93,59 +110,75 @@ const SellBikeQueriesData: React.FC = () => {
           <ul
             key={index}
             className="flex capitalize lg:text-sm border-t sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer"
-            
           >
-            <div className="flex w-full items-center justify-between" onClick={() => handleItemClick(bike)}>
-            <li className="sm:w-1/5 w-1/5 lg:py-6 px-1 py-2">
-              {bike.name}
-            </li>
-            <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2 ">
-              {bike.mobileNo}
-            </li>
-            <li className="w-1/5 lg:py-6 px-1 py-2">{bike.title}</li>
-            <li className="w-1/4 lg:py-6 px-1 py-2">{bike.model}</li>
-            <li className="w-1/6 lg:py-6 px-1 py-2">{bike.price}</li>
-            <li className="max-sm:hidden w-1/4 lg:py-6 px-1 py-2">
-              {bike.engine}
-            </li>
-            <li
-              className={`w-1/6 lg:py-1 py-1  px-1 rounded-full text-center`}
+            <div
+              className="flex w-full items-center justify-between"
+              onClick={() => handleItemClick(bike)}
             >
-              {bike.year}
-            </li>
+              <li className="sm:w-1/5 w-1/5 lg:py-6 px-1 py-2">{bike.name}</li>
+              <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2 ">
+                {bike.mobileNo}
+              </li>
+              <li className="w-1/5 lg:py-6 px-1 py-2">{bike.title}</li>
+              <li className="w-1/4 lg:py-6 px-1 py-2">{bike.model}</li>
+              <li className="w-1/6 lg:py-6 px-1 py-2">{bike.price}</li>
+              <li className="max-sm:hidden w-1/4 lg:py-6 px-1 py-2">
+                {bike.engine}
+              </li>
+              <li
+                className={`w-1/6 lg:py-1 py-1 px-1 rounded-full text-center`}
+              >
+                {bike.year}
+              </li>
             </div>
             <li
-              className={`relative w-1/6 lg:py-1 py-1 px-1 rounded-full text-center capitalize flex justify-center items-center ${bike.status === "Resolved" ? "text-green-600" : bike.status === "Pending" ? "text-orange-600" : "text-red-600"}`}
+              className={`relative w-1/6 lg:py-1 py-1 px-1 rounded-full text-center capitalize flex justify-center items-center ${getStatusClass(bike.status)}`}
               onClick={() => toggleDropdownStatus(index)}
-              >
-                {bike.status}
-                <i className=" fa-solid fa-chevron-down ml-3 relative"></i>
+            >
+              {bike.status}
+              <i className="fa-solid fa-chevron-down ml-3 relative"></i>
               {dropdownsVisibleStatus[index] && (
-                  <ul className="absolute w-32 left-0 top-14 font-normal text-gray-800 bg-white border border-gray-300 rounded shadow-lg z-10">
-                    <li
-                      className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer"
-                      onClick={() => handleStatusChange((currentPage - 1) * ITEMS_PER_PAGE + index, "Resolved")}
-                    >
-                      Resolved
-                    </li>
-                    <li
-                      className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer"
-                      onClick={() => handleStatusChange((currentPage - 1) * ITEMS_PER_PAGE + index, "Pending")}
-                    >
-                      Pending
-                    </li>
-                    <li
-                      className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer"
-                      onClick={() => handleStatusChange((currentPage - 1) * ITEMS_PER_PAGE + index, "Cancelled")}
-                      >
-                      Cancelled
-                    </li>
-                    {/* Add other options here */}
-                  </ul>
-                )}
+                <ul className="absolute w-32 left-0 top-14 font-normal text-gray-800 bg-white border border-gray-300 rounded shadow-lg z-10">
+                  <li
+                    className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer"
+                    onClick={() =>
+                      handleStatusChange(
+                        (currentPage - 1) * ITEMS_PER_PAGE + index,
+                        'Resolved',
+                      )
+                    }
+                  >
+                    Resolved
+                  </li>
+                  <li
+                    className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer"
+                    onClick={() =>
+                      handleStatusChange(
+                        (currentPage - 1) * ITEMS_PER_PAGE + index,
+                        'Pending',
+                      )
+                    }
+                  >
+                    Pending
+                  </li>
+                  <li
+                    className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer"
+                    onClick={() =>
+                      handleStatusChange(
+                        (currentPage - 1) * ITEMS_PER_PAGE + index,
+                        'Cancelled',
+                      )
+                    }
+                  >
+                    Cancelled
+                  </li>
+                  {/* Add other options here */}
+                </ul>
+              )}
             </li>
             <li className="relative w-[10%] lg:py-6 px-1 py-2 cursor-pointer text-center">
-              {editedStatusIndex === (currentPage - 1) * ITEMS_PER_PAGE + index ? (
+              {editedStatusIndex ===
+              (currentPage - 1) * ITEMS_PER_PAGE + index ? (
                 <button
                   className="px-4 py-2 bg-green-600 text-white font-medium rounded"
                   onClick={handleSaveClick}

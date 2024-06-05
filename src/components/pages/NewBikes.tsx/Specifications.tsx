@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function Specifications() {
   return (
@@ -8,7 +8,7 @@ export default function Specifications() {
       </h1>
 
       <div className="mt-5 grid grid-cols-2">
-        <div className="col-span-2  w-full md:col-span-1 md:pr-4">
+        <div className="col-span-2 w-full md:col-span-1 md:pr-4">
           <div className="flex justify-between border-b-2 py-2">
             <p className="text-xs text-gray-700 lg:text-sm">Price</p>
             <p className="max-lg:text-sm">$ 10000</p>
@@ -39,7 +39,7 @@ export default function Specifications() {
           </div>
         </div>
 
-        <div className="col-span-2  w-full md:col-span-1 md:pl-4">
+        <div className="col-span-2 w-full md:col-span-1 md:pl-4">
           <div className="flex justify-between border-b-2 py-2">
             <p className="text-xs text-gray-700 lg:text-sm">
               Dimension (Lxwxh)

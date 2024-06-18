@@ -40,13 +40,13 @@ const ImageSlider = () => {
     beforeChange: (_current: number, next: number) => setCurrentSlide(next),
   };
 
-        const images = [
-          '/assets/Images/bike10.jpg',
-          '/assets/Images/bike11.jpg',
-          '/assets/Images/bike12.jpg',
-          '/assets/Images/bike2.png',
-          '/assets/Images/bike6.png',
-        ];
+  const images = [
+    '/assets/Images/bike10.jpg',
+    '/assets/Images/bike11.jpg',
+    '/assets/Images/bike12.jpg',
+    '/assets/Images/bike2.png',
+    '/assets/Images/bike6.png',
+  ];
 
   const handleThumbnailClick = (index: number) => {
     setCurrentSlide(index);
@@ -78,11 +78,7 @@ const ImageSlider = () => {
                 key={index}
                 className=" h-[55vh]  max-[425px]:h-[35vh] sm:h-[40vh]"
               >
-                <img
-                  src={src}
-                  alt={`Slide ${index}`}
-                  className="size-full "
-                />
+                <img src={src} alt={`Slide ${index}`} className="size-full " />
               </div>
             ))}
           </Slider>

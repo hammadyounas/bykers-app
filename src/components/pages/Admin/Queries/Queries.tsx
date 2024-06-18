@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Dropdown from "@/components/ui/Dropdown";
-import QueriesData from "./QueriesData";
-import Title from "@/components/ui/Title";
+import Dropdown from '@/components/ui/Dropdown';
+import Title from '@/components/ui/Title';
+
+import QueriesData from './QueriesData';
 
 export default function Queries() {
-  const [selectedTypes, setSelectedTypes] = useState<string>("");
+  const [selectedTypes, setSelectedTypes] = useState<string>('');
   const allTypes = [
-    { value: "resolved", label: "Resolved" },
-    { value: "pending", label: "Pending" },
-    { value: "cancelled", label: "Cancelled" },
+    { value: 'resolved', label: 'Resolved' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'cancelled', label: 'Cancelled' },
   ];
   return (
     <div className="flex min-h-screen flex-col justify-center py-20 max-lg:flex-col pt-10 mx-auto bg-white shadow-md w-[95%] items-center lg:w-[100%] lg:p-5 p-2">
@@ -29,7 +30,7 @@ export default function Queries() {
             />
             <div className="sm:w-[50%] sm:ml-4 max-sm:mr-4">
               <Dropdown
-                label={"Filter"}
+                label={'Filter'}
                 options={allTypes}
                 selected={selectedTypes}
                 setSelected={setSelectedTypes}

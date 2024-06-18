@@ -71,11 +71,7 @@ const ImageSlider = () => {
             key={index}
             className="mt-5 h-[55vh] max-[425px]:h-[35vh] sm:h-[55vh]"
           >
-            <img
-              src={src}
-              alt={`Slide ${index}`}
-              className="size-full"
-            />
+            <img src={src} alt={`Slide ${index}`} className="size-full" />
           </div>
         ))}
       </Slider>
@@ -86,11 +82,7 @@ const ImageSlider = () => {
             className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? 'border-2 border-red-600' : 'border'}`}
             onClick={() => handleThumbnailClick(index)}
           >
-            <img
-              src={src}
-              alt={`Thumbnail ${index}`}
-              className="size-full "
-            />
+            <img src={src} alt={`Thumbnail ${index}`} className="size-full " />
           </div>
         ))}
       </div>

@@ -125,6 +125,7 @@ export default function SellBike() {
               name={item.name}
               value={formData[item.name] as string}
               onChange={handleChange}
+              required
             />
           </div>
         );
@@ -165,6 +166,7 @@ export default function SellBike() {
                   type="file"
                   className="hidden"
                   onChange={handleFileChange}
+                  required
                 />
               </label>
             </div>
@@ -190,6 +192,7 @@ export default function SellBike() {
               name={item.name}
               value={formData[item.name] as string}
               onChange={handleChange}
+              required
             />
           </div>
         );

@@ -7,10 +7,10 @@ type FieldConfig = {
 export const BuyBikesConstant: FieldConfig[] = [
   { name: 'name', type: 'text', label: 'Name' },
   { name: 'email', type: 'email', label: 'Email' },
-  { name: 'PhoneNo', type: 'text', label: 'Phone No' },
+  { name: 'phone_number', type: 'text', label: 'Phone No' },
   { name: 'description', type: 'textarea', label: 'Description' },
   {
-    name: 'want a free ride',
+    name: 'interested_in_test_ride',
     type: 'checkbox',
     label: 'Do you want to get a free ride?',
   },

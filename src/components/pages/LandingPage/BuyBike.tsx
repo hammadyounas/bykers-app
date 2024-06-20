@@ -1,8 +1,90 @@
 import { BuyBikesConstant } from 'constant/BuyBikeConstant';
 import { newBikeConstant } from 'constant/OldAndNewBikesConstant';
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function BuyBike() {
+    interface FormData {
+    name: string;
+    email: string;
+    phone_number: string;
+    description: string;
+    interested_in_test_ride: boolean;
+    [key: string]: string | boolean;// Index signature for dynamic keys
+  }
+
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    phone_number: '',
+    description: '',
+    interested_in_test_ride: false,
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      const { checked } = e.target as HTMLInputElement;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: checked,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  
+  
+    const json = JSON.stringify(formData);
+
+    try {
+      const response = await fetch('http://localhost:5000/buy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json,
+      });
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        toast.success(`Interest submitted successfully!`, {
+        position: "top-center",
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone_number: '',
+          description: '',
+          interested_in_test_ride: false,
+        });
+        console.log(responseData)
+      } else {
+        // Improved error handling for non-JSON responses
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          toast.error(`Error: ${errorData.message}`);
+        } else {
+          const errorText = await response.text();
+          toast.error(`Error: ${errorText}`);
+        }
+      }
+   
+
+    } catch (error) {
+      console.error('Network or other error:', error);
+      toast.error(`Error: ${error instanceof Error ? error.message : 'An unknown error occurred'}`);
+    
+  }};
+
   const images = [
     '/assets/Images/bike1.png',
     '/assets/Images/bike14.jpg',
@@ -26,6 +108,8 @@ export default function BuyBike() {
             <textarea
               className="mt-2 h-20 w-full resize-none rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
               name={item.name}
+              value={formData[item.name] as string}
+              onChange={handleChange}
               required
             />
           </>
@@ -37,6 +121,8 @@ export default function BuyBike() {
               type="checkbox"
               className="mt-2 mr-2 rounded caret-gray-900 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
               name={item.name}
+              checked={formData[item.name] as boolean}
+              onChange={handleChange}
             />
             <label className="font-medium text-gray-700">{item.label}</label>
           </>
@@ -49,6 +135,8 @@ export default function BuyBike() {
               className="mt-2 w-full rounded px-4 py-2 caret-gray-900 shadow-sm shadow-gray-600 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-gray-600"
               type={item.type}
               name={item.name}
+              value={formData[item.name] as string}
+              onChange={handleChange}
               required
             />
           </>
@@ -56,16 +144,12 @@ export default function BuyBike() {
     }
   };
 
-  const handleSubmit = async () => {
-    // toast.success(`Admin will contact you soon.`, {
-    //   position: 'top-center',
-    // });
-  };
 
   return (
     <>
-      {/* <ToastContainer /> */}
+    
       <div className="flex max-lg:flex-col w-full justify-between lg:pt-32 sm:pt-20 xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
+      <ToastContainer />
         <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col xl:w-[60%] lg:w-[70%] w-full">
           {/* Display bike details */}
 

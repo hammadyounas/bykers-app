@@ -74,7 +74,11 @@ const SellBikeQueriesData: React.FC = () => {
       if (response.status === 200) {
         setBikes(prevBikes => {
           const updatedBikes = [...prevBikes];
-          if (updatedBikes[index]) { // Ensure index is defined here
+          if(!updatedBikes[index]) {
+            toast.error('Not updated!');
+          }
+          else { // Ensure index is defined here
+
             updatedBikes[index].approved = updatedApprovedStatus;
           }
           return updatedBikes;

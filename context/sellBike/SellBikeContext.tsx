@@ -1,6 +1,5 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, Dispatch, SetStateAction } from 'react';
 
-// Define the type for your form data
 export interface FormData {
   name: string;
   mobile_info: string;
@@ -15,25 +14,25 @@ export interface FormData {
   location: string;
   selling_price: string;
   description: string;
-  images: File | null;
-  [key: string]: string | File | null;
+  condition: string;
+  images: File[];
+  [key: string]: string | File[] | null;
 }
 
-// Define the type for your context
-interface SellBikeContextType {
+export interface SellBikeContextType {
   formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  setFormData: Dispatch<SetStateAction<FormData>>;
   selectedFile: File | null;
-  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
+  setSelectedFile: Dispatch<SetStateAction<File | null>>;
+  selectedFiles: File[]; // Add selectedFiles here
+  setSelectedFiles: Dispatch<SetStateAction<File[]>>; // Add setSelectedFiles here
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-// Create context with initial values
 export const SellBikeContext = createContext<SellBikeContextType | undefined>(undefined);
 
-// Custom hook to use the context
 export const useSellBikeContext = () => {
   const context = useContext(SellBikeContext);
   if (!context) {
@@ -41,3 +40,5 @@ export const useSellBikeContext = () => {
   }
   return context;
 };
+
+export default SellBikeContext;

@@ -9,6 +9,7 @@ export default function SellBikesQueries() {
   //   { value: "old-bikes", label: "Old Bikes" },
   //   { value: "new-bikes", label: "New Bikes" },
   // ];
+  
   return (
     <>
       <div className="flex min-h-screen flex-col justify-center py-20 max-lg:flex-col pt-10 mx-auto bg-white shadow-md w-[95%] items-center lg:w-[100%] lg:p-5 p-2">

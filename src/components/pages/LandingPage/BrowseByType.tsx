@@ -1,47 +1,84 @@
 'use client';
 
+interface Bike {
+  _id: string;
+  name: string;
+  images: string[];
+  selling_price: string;
+  condition: string;
+  [key: string]: any;
+}
+
 import {
   bikeTypeConstant,
-  newBikeConstant,
-  oldBikeConstant,
 } from 'constant/OldAndNewBikesConstant';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Link from 'next/link';
 
 export default function BrowseByType() {
   const [selectedCategory, setSelectedCategory] = useState('New Bike'); // Initial state
   const [activeLink, setActiveLink] = useState(bikeTypeConstant[0]?.title);
-  const router = useRouter();
+  const [bikes, setBikes] = useState<Bike[]>([]);
+      const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchBikes = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bikes`, {
+          params: {
+            page: 1,
+            limit: 10,
+          },
+        });
+        const fetchedBikes = response.data.bikes;
+
+        // Fetch images for each bike
+        const bikesWithImages = await Promise.all(
+          fetchedBikes.map(async (bike: Bike) => {
+            const images = await Promise.all(
+              bike.images.map(async (imageId: string) => {
+                const imageResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/image/${imageId}`, {
+                  responseType: 'blob',
+                });
+                return URL.createObjectURL(imageResponse.data);
+              })
+            );
+            return { ...bike, images };
+          })
+        );
+
+        setBikes(bikesWithImages);
+      } catch (error) {
+        console.error('Error fetching bikes:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBikes();
+  }, [selectedCategory]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     setActiveLink(category);
   };
 
-  const getCardsForCategory = (category: string) => {
-    switch (category) {
-      case 'New Bike':
-        return newBikeConstant;
-      case 'Old Bike':
-        return oldBikeConstant;
-      default:
-        return [];
-    }
+  const filterBikesByCondition = (condition: string) => {
+    return bikes.filter(bike => bike.condition === condition);
   };
 
-  const currentCards = getCardsForCategory(selectedCategory);
+  const filteredBikes = selectedCategory === 'New Bike' ? filterBikesByCondition('New') : filterBikesByCondition('Used');
 
-  const handleImageClick = (alt: string) => {
-    const bike = currentCards.find((item) => item.alt === alt);
-    if (bike) {
-      router.push(
-        `/bikeDetails?alt=${encodeURIComponent(alt)}`,
-        `/bikeDetails?alt=${encodeURIComponent(alt)}`,
-        { shallow: true },
-      );
-    }
-  };
 
   return (
     <div id="browse" className={'max-sm:mt-10 sm:m-20'}>
@@ -77,52 +114,44 @@ export default function BrowseByType() {
       <div
         className={'grid grid-cols-1 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3 '}
       >
-        {currentCards.map(
-          (
-            item,
-            index, // Updated to render cards based on selected category
-          ) => (
-            <div
-              key={index}
-              className={
-                'mt-10 flex cursor-pointer items-center justify-center'
-              }
-              onClick={() => handleImageClick(item.alt)}
-            >
-              <div>
-                <div
-                  className={``}
-                  style={{
-                    overflowY: item.alt === 'New Bike' ? 'auto' : 'hidden',
-                  }}
-                >
-                  <Image
-                    src={item.src[0]}
-                    alt={item.alt}
-                    width={150}
-                    height={100}
-                    className=" w-[150px] xl:h-[180px]  xl:w-[300px]"
-                  />
-                  {/* Add overlay for hover effect */}
-                  {/* {item.alt === 'Sports Biks' && (
-                  <div className={styles.overlay}>
-                    <h3>SCROLL</h3>
+        {filteredBikes.length === 0 && (
+          <div className={'text-center text-lg font-bold text-red-600'}>
+            No bikes found
+          </div>
+        ) }
+        {filteredBikes.map((bike, index) => (
+          <div
+            key={index}
+            className={
+              'mt-10 flex cursor-pointer items-center justify-center'
+            }
+          >
+            <Link href={`/bikeDetails/${bike._id}`}>
+                <div>
+                  <div
+                    style={{
+                      overflowY: bike.condition === 'New' ? 'auto' : 'hidden',
+                    }}
+                  >
+                    {bike.images[0] && (
+                      <Image
+                        src={bike.images[0]}
+                        alt={bike.name || 'Bike Image'}
+                        width={150}
+                        height={100}
+                        className="w-[150px] xl:h-[180px] xl:w-[300px]"
+                      />
+                    )}
                   </div>
-                )} */}
+                  <div className="text-center font-bold">
+                    <h2>{bike.title}</h2>
+                    <p className="text-red-600">{bike.selling_price}</p>
+                  </div>
                 </div>
-                <div className={'text-center font-bold'}>
-                  <h2>{item.title}</h2>
-                  <p className="text-red-600">{item.price}</p>
-                  {''}
-                  {/* Add description property to Bike interface */}
-                </div>
-                {/* <a href="#" className={''}>
-                  View
-                </a> */}
-              </div>
-            </div>
-          ),
-        )}
+              
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );

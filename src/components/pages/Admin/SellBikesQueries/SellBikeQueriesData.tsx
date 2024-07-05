@@ -62,18 +62,18 @@ const SellBikeQueriesData: React.FC = () => {
 
   const handleStatusChange = async (bikeId: string, index?: number, newStatus?: string) => {
     try {
-      if (!newStatus) return; // Exit early if newStatus is undefined
-
+      if (!newStatus || index === undefined) return; // Exit early if newStatus is undefined or index is undefined
+  
       // Update bike approval status based on newStatus
       const isResolved = newStatus === 'Resolved';
       const updatedApprovedStatus = isResolved ? true : false;
-
+  
       // Patch request to update bike approval status
       const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/approve/${bikeId}`);
       if (response.status === 200) {
         setBikes(prevBikes => {
           const updatedBikes = [...prevBikes];
-          if (index !== undefined && updatedBikes[index]) {
+          if (updatedBikes[index]) { // Ensure index is defined here
             updatedBikes[index].approved = updatedApprovedStatus;
           }
           return updatedBikes;
@@ -85,6 +85,7 @@ const SellBikeQueriesData: React.FC = () => {
       // Handle error state or notification here
     }
   };
+  
 
   const handleItemClick = (bikeId: string) => {
     router.push(`/admin/sellBikeQueriesDetails/details/${bikeId}`);

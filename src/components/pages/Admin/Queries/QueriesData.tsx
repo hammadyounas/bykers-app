@@ -114,6 +114,13 @@ const QueriesData: React.FC = () => {
         </ul>
       </div>
       <div>
+      {currentData.length === 0 && (
+          <div className="flex justify-center items-center h-screen">
+            <div className="text-center text-red-600">
+              No Data Found
+            </div>
+          </div>
+        )}
         {currentData.map((query, index) => (
           <ul key={query._id} className="flex items-center sm:justify-center border-t justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer">
             <div className="flex w-full items-center justify-between">

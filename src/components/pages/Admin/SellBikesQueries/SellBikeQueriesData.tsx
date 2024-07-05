@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PaginationUI from '@/components/ui/PaginationUI';
+import { toast, ToastContainer } from 'react-toastify';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -22,7 +23,7 @@ interface Bike {
 
 const SellBikeQueriesData: React.FC = () => {
   const [bikes, setBikes] = useState<Bike[]>([]);
-  const [dropdownsVisibleStatus, setDropdownsVisibleStatus] = useState<boolean[]>([]);
+  const [dropdownsVisibleStatus, setDropdownsVisibleStatus] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -78,6 +79,7 @@ const SellBikeQueriesData: React.FC = () => {
           }
           return updatedBikes;
         });
+        toast.success('Bike approved successfully!');
         fetchBikes();
       }
     } catch (error) {
@@ -104,6 +106,7 @@ const SellBikeQueriesData: React.FC = () => {
 
   return (
     <div className="sm:w-full w-full mx-auto">
+      <ToastContainer />
       <div className="w-full">
         <ul className="flex justify-between border-t items-center mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
           <div className="flex justify-between items-center w-full">
@@ -120,6 +123,13 @@ const SellBikeQueriesData: React.FC = () => {
         </ul>
       </div>
       <div>
+        {currentData.length === 0 && (
+          <div className="flex justify-center items-center h-screen">
+            <div className="text-center text-red-600">
+              No Data Found
+            </div>
+          </div>
+        )}
         {currentData.map((bike, index) => (
           <ul key={index} className="flex capitalize lg:text-sm border-t sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer">
             <div className="flex w-full items-center justify-between" onClick={() => handleItemClick(bike._id)}>
@@ -139,9 +149,9 @@ const SellBikeQueriesData: React.FC = () => {
                   <li className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(bike._id, index, 'Resolved')}>
                     Resolved
                   </li>
-                  <li className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(bike._id, index, 'Pending')}>
+                  {/* <li className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(bike._id, index, 'Pending')}>
                     Pending
-                  </li>
+                  </li> */}
                 </ul>
               )}
             </li>

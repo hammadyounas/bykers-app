@@ -119,6 +119,13 @@ const ViewBikesData: React.FC = () => {
         </ul>
       </div>
       <div>
+      {currentData.length === 0 && (
+          <div className="flex justify-center items-center h-screen">
+            <div className="text-center text-red-600">
+              No Data Found
+            </div>
+          </div>
+        )}
         {currentData.map((bike, index: number) => (
           <ul
             key={index}

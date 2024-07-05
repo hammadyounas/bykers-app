@@ -112,8 +112,6 @@ export default function ViewBikesDetails() {
     );
   }
 
-
-
   const handleThumbnailClick = (index: number) => {
     setCurrentSlide(index);
   };

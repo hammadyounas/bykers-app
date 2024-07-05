@@ -53,7 +53,7 @@ export default function SellBikeQueriesDetails() {
       email: '',
     },
   });
-  
+
   useEffect(() => {
     const fetchBike = async () => {
       setLoading(true);
@@ -145,6 +145,13 @@ export default function SellBikeQueriesDetails() {
               />
             </div>
             <div className="flex mt-4">
+              {bike.length === 0 && (
+                <div className="flex justify-center items-center h-screen">
+                  <div className="text-center text-red-600">
+                    No Data Found
+                  </div>
+                </div>
+              )}
               {bike.images.map((src: string, index: number) => (
                 <div
                   key={index}
@@ -168,104 +175,104 @@ export default function SellBikeQueriesDetails() {
           </h1>
           <div className="w-full">
             <div className="mt-5 xl:w-[100%] w-full">
-        
-                <div>
-                  <div className="container mx-auto">
-                      <div className="mt-5 grid grid-cols-2">
-                        <div className="col-span-2  w-full xl:col-span-1 md:pr-8">
-                          <div className="flex justify-between border-b-2 py-2 capitalize">
-                            <p className="text-xs text-gray-700 lg:text-sm ">Name</p>
-                            <p className="max-lg:text-sm max-md:text-xs ">
-                              {bike.contact?.name}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2 capitalize">
-                            <p className="text-xs text-gray-700 lg:text-sm ">Phone No</p>
-                            <p className="max-lg:text-sm max-md:text-xs ">
-                              {bike.contact?.mobile_info}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm ">Email</p>
-                            <p className="max-lg:text-sm max-md:text-xs ">
-                              {bike.contact?.email}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">Price</p>
-                            <p className="max-lg:text-sm max-md:text-xs">
-                              {bike.selling_price}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">Model</p>
-                            <p className="max-lg:text-sm max-md:text-xs">
-                              {bike.model}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">Engine</p>
-                            <p className="max-lg:text-sm max-md:text-xs">
-                              {bike.engine}
-                            </p>
-                          </div>
 
-                        </div>
-                        <div className="col-span-2  w-full xl:col-span-1 md:pr-4">
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">
-                              Condition
-                            </p>
-                            <p className="max-lg:text-sm max-md:text-xs">
-                              {bike.condition}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">
-                              Petrol Capacity
-                            </p>
-                            <p className="max-lg:text-sm max-md:text-xs">
-                              {bike.petrol_capacity_per_litre}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">
-                              Purchased Year
-                            </p>
-                            <p className="max-lg:text-sm max-md:text-xs">
-                              {bike.purchased_year}
-                            </p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">
-                              Location
-                            </p>
-                            <p className="max-lg:text-sm">{bike.location}</p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">
-                              Registered In
-                            </p>
-                            <p className="max-lg:text-sm">{bike.registered_in}</p>
-                          </div>
-                          <div className="flex justify-between border-b-2 py-2">
-                            <p className="text-xs text-gray-700 lg:text-sm">
-                              Total Mileage
-                            </p>
-                            <p className="max-lg:text-sm max-md:text-xs">
-                              {bike.total_mileage}
-                            </p>
-                          </div>
-                        </div>
+              <div>
+                <div className="container mx-auto">
+                  <div className="mt-5 grid grid-cols-2">
+                    <div className="col-span-2  w-full xl:col-span-1 md:pr-8">
+                      <div className="flex justify-between border-b-2 py-2 capitalize">
+                        <p className="text-xs text-gray-700 lg:text-sm ">Name</p>
+                        <p className="max-lg:text-sm max-md:text-xs ">
+                          {bike.contact?.name}
+                        </p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2 capitalize">
+                        <p className="text-xs text-gray-700 lg:text-sm ">Phone No</p>
+                        <p className="max-lg:text-sm max-md:text-xs ">
+                          {bike.contact?.mobile_info}
+                        </p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm ">Email</p>
+                        <p className="max-lg:text-sm max-md:text-xs ">
+                          {bike.contact?.email}
+                        </p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">Price</p>
+                        <p className="max-lg:text-sm max-md:text-xs">
+                          {bike.selling_price}
+                        </p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">Model</p>
+                        <p className="max-lg:text-sm max-md:text-xs">
+                          {bike.model}
+                        </p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">Engine</p>
+                        <p className="max-lg:text-sm max-md:text-xs">
+                          {bike.engine}
+                        </p>
+                      </div>
+
+                    </div>
+                    <div className="col-span-2  w-full xl:col-span-1 md:pr-4">
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">
+                          Condition
+                        </p>
+                        <p className="max-lg:text-sm max-md:text-xs">
+                          {bike.condition}
+                        </p>
                       </div>
                       <div className="flex justify-between border-b-2 py-2">
                         <p className="text-xs text-gray-700 lg:text-sm">
-                          Description
+                          Petrol Capacity
                         </p>
-                        <p className="max-lg:text-sm max-md:text-xs pl-2">{bike.description}</p>
+                        <p className="max-lg:text-sm max-md:text-xs">
+                          {bike.petrol_capacity_per_litre}
+                        </p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">
+                          Purchased Year
+                        </p>
+                        <p className="max-lg:text-sm max-md:text-xs">
+                          {bike.purchased_year}
+                        </p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">
+                          Location
+                        </p>
+                        <p className="max-lg:text-sm">{bike.location}</p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">
+                          Registered In
+                        </p>
+                        <p className="max-lg:text-sm">{bike.registered_in}</p>
+                      </div>
+                      <div className="flex justify-between border-b-2 py-2">
+                        <p className="text-xs text-gray-700 lg:text-sm">
+                          Total Mileage
+                        </p>
+                        <p className="max-lg:text-sm max-md:text-xs">
+                          {bike.total_mileage}
+                        </p>
                       </div>
                     </div>
-                  {/* <div className="mt-5 lg:text-base sm:text-sm text-xs">
+                  </div>
+                  <div className="flex justify-between border-b-2 py-2">
+                    <p className="text-xs text-gray-700 lg:text-sm">
+                      Description
+                    </p>
+                    <p className="max-lg:text-sm max-md:text-xs pl-2">{bike.description}</p>
+                  </div>
+                </div>
+                {/* <div className="mt-5 lg:text-base sm:text-sm text-xs">
                     <button
                       className="px-10 sm:py-2 py-1 bg-green-600 text-white font-medium rounded"
                       onClick={handleEditClick}
@@ -273,8 +280,8 @@ export default function SellBikeQueriesDetails() {
                       Edit
                     </button>
                   </div> */}
-                </div>
-              
+              </div>
+
             </div>
           </div>
         </div>

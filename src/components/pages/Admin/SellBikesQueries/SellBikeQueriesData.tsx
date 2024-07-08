@@ -92,8 +92,8 @@ const SellBikeQueriesData: React.FC = () => {
       if (response.status === 200) {
         setBikes(prevBikes => {
           const updatedBikes = [...prevBikes];
-          // Check if updatedBikes[index] is defined
-          if (updatedBikes[index] !== undefined) {
+          // Use optional chaining to safely access and update 'approved' property
+          if (updatedBikes[index]?.approved !== undefined) {
             updatedBikes[index].approved = updatedApprovedStatus;
           } else {
             toast.error('Bike not found');

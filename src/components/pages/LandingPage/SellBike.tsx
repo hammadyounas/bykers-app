@@ -3,9 +3,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SellBikesConstant } from '../../../../constant/SellBikeConstant';
 import { useSellBikeContext } from 'context/sellBike/SellBikeContext';
+import { useDropzone } from 'react-dropzone';
 
 export default function SellBike() {
-  const { formData, selectedFile, handleFileChange, handleChange, handleSubmit } = useSellBikeContext();
+  const { formData, selectedFiles, handleFileChange, handleChange, handleSubmit } = useSellBikeContext();
 
   const contactFields = SellBikesConstant.filter((item) =>
     ['name', 'mobile_info', 'email'].includes(item.name)
@@ -14,6 +15,16 @@ export default function SellBike() {
   const bikeFields = SellBikesConstant.filter(
     (item) => !['name', 'mobile_info', 'email', 'status'].includes(item.name)
   );
+
+  const onDrop = (acceptedFiles: File[]) => {
+    handleFileChange({
+      target: {
+        files: acceptedFiles,
+      },
+    } as unknown as React.ChangeEvent<HTMLInputElement>);
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const renderField = (item: { name: string; type: string; label: string; options?: { value: string; label: string }[] }) => {
     switch (item.type) {
@@ -30,60 +41,57 @@ export default function SellBike() {
             />
           </div>
         );
-      case 'file':
-        return (
-          <div key={item.name}>
-            <label className="font-medium text-gray-700">{item.label}</label>
-            <div className="flex items-center justify-center w-full mt-2">
-              <label
-                htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-28 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-700 dark:hover:bg-gray-200"
-              >
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <svg
-                    className="sm:w-8 sm:h-8 h-5 w-5 mb-4 text-gray-500 dark:text-slate-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 16"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13 13h3a3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                    />
-                  </svg>
-                  <p className="mb-2 text-sm text-gray-500 dark:text-slate-400">
-                    <span className="font-semibold">Click to upload</span> or drag and drop
-                  </p>
-                  <p className="text-xs text-red-500 dark:text-slate-400">
-                    SVG, PNG, JPG (MAX. 800x400px)
-                  </p>
+        case 'file':
+          return (
+            <div key={item.name}>
+              <label className="font-medium text-gray-700">{item.label}</label>
+              <div {...getRootProps()} className="flex items-center justify-center w-full mt-2">
+                <input {...getInputProps()} />
+                <div
+                  className={`flex flex-col items-center justify-center w-full h-28 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-700 dark:hover:bg-gray-200 ${
+                    isDragActive ? 'border-green-500' : ''
+                  }`}
+                >
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg
+                      className="sm:w-8 sm:h-8 h-5 w-5 mb-4 text-gray-500 dark:text-slate-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 16"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13 13h3a3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                      />
+                    </svg>
+                    <p className="mb-2 text-sm text-gray-500 dark:text-slate-400">
+                      <span className="font-semibold">Click to upload</span> or drag and drop
+                    </p>
+                    <p className="text-xs text-red-500 dark:text-slate-400">
+                      SVG, PNG, JPG (MAX. 800x400px)
+                    </p>
+                  </div>
                 </div>
-                <input
-                  id="dropzone-file"
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileChange}
-                  multiple
-                  required
-                />
-              </label>
-            </div>
-            {selectedFile && (
-              <div className="mt-4">
-                <img
-                  src={URL.createObjectURL(selectedFile)}
-                  alt="Preview"
-                  className="sm:h-28 sm:w-28 h-16 w-16 object-cover rounded"
-                />
               </div>
-            )}
-          </div>
-        );
-
+              {selectedFiles.length > 0 && (
+                <div className="mt-4 flex flex-wrap">
+                  {selectedFiles.map((file, index) => (
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(file)}
+                      alt={`Preview ${index}`}
+                      className="sm:h-28 sm:w-28 h-16 w-16 rounded m-2"
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+  
       case 'select':
         return (
           <div key={item.name}>

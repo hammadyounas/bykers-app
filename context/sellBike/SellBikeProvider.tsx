@@ -24,7 +24,7 @@ export const SellBikeProvider: React.FC<SellBikeProviderProps> = ({ children }) 
     location: '',
     selling_price: '',
     description: '',
-    condition: '',
+    condition: 'Used',
     images: [] as File[], // Ensure images is typed as File[]
   });
 
@@ -65,55 +65,51 @@ export const SellBikeProvider: React.FC<SellBikeProviderProps> = ({ children }) 
       formDataToSend.append('images', file);
     });
 
-    // console.log([...formDataToSend.entries()]);
-
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sell/bike`, {
         method: 'POST',
         body: formDataToSend,
-        // mode: 'cors', // Ensure CORS mode is set to 'cors'
-        // credentials: 'same-origin',
       });
 
       if (response.ok) {
         const responseData = await response.json();
         toast.success(`Bike Submitted Successfully!`);
         console.log(responseData);
-      } 
-      // Reset form data after successful submission
-      setFormData({
-        name: '',
-        mobile_info: '',
-        email: '',
-        title: '',
-        model: '',
-        engine: '',
-        registered_in: '',
-        purchased_year: '',
-        petrol_capacity_per_litre: '',
-        total_mileage: '',
-        location: '',
-        selling_price: '',
-        description: '',
-        condition: '',
-        images: [] as File[],
-      });
+        
+        // Reset form data after successful submission
+        setFormData({
+          name: '',
+          mobile_info: '',
+          email: '',
+          title: '',
+          model: '',
+          engine: '',
+          registered_in: '',
+          purchased_year: '',
+          petrol_capacity_per_litre: '',
+          total_mileage: '',
+          location: '',
+          selling_price: '',
+          description: '',
+          condition: 'Used',
+          images: [] as File[],
+        });
 
-      // Clear selected files
-      setSelectedFiles([]);
-      // else {
-      //   const contentType = response.headers.get('content-type');
-      //   if (contentType && contentType.includes('application/json')) {
-      //     const errorData = await response.json();
-      //     toast.error(`Error: ${errorData.message}`);
-      //   } else {
-      //     const errorText = await response.text();
-      //     toast.error(`Error: ${errorText}`);
-      //   }
-      // }
+        // Clear selected files
+        setSelectedFiles([]);
+      } else {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          toast.error(`Error: ${errorData.message}`);
+        } else {
+          const errorText = await response.text();
+          toast.error(`Error: ${errorText}`);
+        }
+      }
     } catch (error) {
       console.error('Network or other error:', error);
-      // toast.error(`Error: ${error instanceof Error ? error.message : 'An unknown error occurred'}`);
+      toast.error(`Error: ${error instanceof Error ? error.message : 'An unknown error occurred'}`);
     }
   };
 

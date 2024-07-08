@@ -145,7 +145,7 @@ export default function BrowseByType() {
                   </div>
                   <div className="text-center font-bold">
                     <h2>{bike.title}</h2>
-                    <p className="text-red-600">${bike.selling_price}</p>
+                    <p className="text-red-600">$ {bike.selling_price}</p>
                   </div>
                 </div>
               

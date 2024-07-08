@@ -1,17 +1,57 @@
 import { BuyBikesConstant } from 'constant/BuyBikeConstant';
-import { newBikeConstant } from 'constant/OldAndNewBikesConstant';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+
+interface BikeDetailsProps {
+  id: string;
+  _id: string;
+  title: string;
+  model: string;
+  images: string[]; // Assuming images are URLs
+  selling_price: string;
+  condition: string;
+  engine: string;
+  total_mileage: string;
+  petrol_capacity_per_litre: string;
+  location: string;
+  purchased_year: string;
+  registered_in: string;
+  type: string; // Assuming this represents the bike type
+}
+
+interface FormData {
+  name: string;
+  email: string;
+  phone_number: string;
+  description: string;
+  interested_in_test_ride: boolean;
+  [key: string]: string | boolean;// Index signature for dynamic keys
+}
+
 
 export default function BuyBike() {
-    interface FormData {
-    name: string;
-    email: string;
-    phone_number: string;
-    description: string;
-    interested_in_test_ride: boolean;
-    [key: string]: string | boolean;// Index signature for dynamic keys
-  }
+  const router = useRouter();
+  const { id } = router.query; 
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [info, setInfo] = useState('');
+  const [bike, setBike] = useState<BikeDetailsProps>({ // Initialize with an empty object
+    id: '',
+    _id: '',
+    title: '',
+    model: '',
+    images: [],
+    selling_price: '',
+    condition: '',
+    engine: '',
+    total_mileage: '',
+    petrol_capacity_per_litre: '',
+    location: '',
+    purchased_year: '',
+    registered_in: '',
+    type: '',
+  });
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -21,7 +61,70 @@ export default function BuyBike() {
     interested_in_test_ride: false,
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBike = async () => {
+      setLoading(true);
+      try {
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/bike/${id}`;
+        console.log('API URL:', apiUrl);
+  
+        const response = await axios.get(apiUrl);
+        console.log('API Response:', response);
+  
+        // Check if response.data has the expected structure
+        if (!response.data || !response.data._id) {
+          console.error('Invalid API response:', response.data);
+          setLoading(false);
+          return;
+        }
+  
+        // Assuming 'bike' object is directly nested in response.data
+        const fetchedBike = response.data;
+        console.log('Fetched bike:', fetchedBike);
+  
+        // Ensure fetchedBike has images and handle accordingly
+        const images = fetchedBike.images || [];
+        const fetchedImages = await Promise.all(
+          images.map(async (imageId: string) => {
+            try {
+              const imageResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/image/${imageId}`, {
+                responseType: 'blob',
+              });
+              return URL.createObjectURL(imageResponse.data);
+            } catch (imageError) {
+              console.error('Error fetching image:', imageError);
+              return null; // Handle image fetching error gracefully
+            }
+          })
+        );
+  
+        setBike({ ...fetchedBike, images: fetchedImages });
+      } catch (error) {
+        console.error('Error fetching bike:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    if (id) {
+      fetchBike();
+    }
+  }, [id]);
+  
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+
+
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     if (type === 'checkbox') {
       const { checked } = e.target as HTMLInputElement;
@@ -38,26 +141,34 @@ export default function BuyBike() {
   };
 
 
- const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
-  
-    const json = JSON.stringify(formData);
+
+  // Fetch the id from router.query
+
+    if (!id) {
+      toast.error('Error: Bike ID not found.');
+      return;
+    }
 
     try {
-      const response = await fetch('http://localhost:5000/buy', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/buy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: json,
+        body: JSON.stringify({
+          ...formData,
+          bike_id: id,
+        }), // Include bikeId in the request body as JSON string
       });
-  
+
       if (response.ok) {
         const responseData = await response.json();
-        toast.success(`Interest submitted successfully!`, {
-        position: "top-center",
-        });
+        setInfo('Interest submitted successfully!');
+        // toast.success(`Interest submitted successfully!`, {
+        //   position: 'top-center',
+        // });
         setFormData({
           name: '',
           email: '',
@@ -65,35 +176,17 @@ export default function BuyBike() {
           description: '',
           interested_in_test_ride: false,
         });
-        console.log(responseData)
+        console.log(responseData);
       } else {
-        // Improved error handling for non-JSON responses
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          const errorData = await response.json();
-          toast.error(`Error: ${errorData.message}`);
-        } else {
-          const errorText = await response.text();
-          toast.error(`Error: ${errorText}`);
-        }
+        const errorData = await response.json();
+        toast.error(`Error: ${errorData.message}`);
       }
-   
-
     } catch (error) {
       console.error('Network or other error:', error);
       toast.error(`Error: ${error instanceof Error ? error.message : 'An unknown error occurred'}`);
-    
-  }};
+    }
+  };
 
-  const images = [
-    '/assets/Images/bike1.png',
-    '/assets/Images/bike14.jpg',
-    '/assets/Images/bike12.jpg',
-    '/assets/Images/bike2.png',
-    '/assets/Images/bike6.png',
-  ];
-
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleThumbnailClick = (index: any) => {
     setCurrentSlide(index);
@@ -147,15 +240,14 @@ export default function BuyBike() {
 
   return (
     <>
-    
-      <div className="flex max-lg:flex-col w-full justify-between lg:pt-32 sm:pt-20 xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
-      <ToastContainer />
+    <div className='lg:pt-32 sm:pt-20 pt-10'>
+      {/* <ToastContainer /> */}
+      <div className="flex max-lg:flex-col w-full justify-between xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
         <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col xl:w-[60%] lg:w-[70%] w-full">
           {/* Display bike details */}
 
-          {newBikeConstant.slice(0, 1).map((bike, index) => (
+          {bike &&  
             <div
-              key={index}
               className="mt-5 xl:w-[90%] md:w-[90%] w-full sm:mt-0 lg:text-base sm:text-sm text-xs mx-auto"
             >
               <h1 className="text-xl font-bold text-red-600 sm:text-2xl lg:text-3xl">
@@ -164,13 +256,13 @@ export default function BuyBike() {
               <div className="flex flex-col justify-center items-center w-full mt-10">
                 <div className="h-[55vh] max-[425px]:h-[35vh] sm:h-[50vh]">
                   <img
-                    src={images[currentSlide]}
+                    src={bike.images[currentSlide]}
                     alt={`image ${currentSlide}`}
                     className="size-full "
                   />
                 </div>
                 <div className="flex mt-4">
-                  {images.map((src) => (
+                  {bike.images.map((src: any, index: any) => (
                     <div
                       key={index}
                       className={`w-[20%] cursor-pointer p-1 ${currentSlide === index ? 'border-2 border-red-600' : 'border'}`}
@@ -197,7 +289,7 @@ export default function BuyBike() {
                   <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">Price</p>
                     <p className="max-lg:text-sm max-md:text-xs">
-                      {bike.price}
+                      {bike.selling_price}
                     </p>
                   </div>
                   <div className="flex justify-between border-b-2 py-2">
@@ -214,20 +306,20 @@ export default function BuyBike() {
                   </div>
                   <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">
-                      Displacement
+                      Total Mileage
                     </p>
                     <p className="max-lg:text-sm max-md:text-xs">
-                      {bike.displacement}
+                      {bike.total_mileage}
                     </p>
                   </div>
                 </div>
                 <div className="col-span-2  w-full xl:col-span-1 md:pr-4">
                   <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">
-                      Horse Power
+                      Condition
                     </p>
                     <p className="max-lg:text-sm max-md:text-xs">
-                      7.5 HP @ 8500.0 RPM
+                     {bike.condition}
                     </p>
                   </div>
                   <div className="flex justify-between border-b-2 py-2">
@@ -235,33 +327,33 @@ export default function BuyBike() {
                       Petrol Capacity
                     </p>
                     <p className="max-lg:text-sm max-md:text-xs">
-                      {bike.petrolCapacity}
+                      {bike.petrol_capacity_per_litre}
                     </p>
                   </div>
                   <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">
-                      Fuel Average
+                      Purchased Year
                     </p>
                     <p className="max-lg:text-sm max-md:text-xs">
-                      {bike.fuelAverage}
+                      {bike.purchased_year}
                     </p>
                   </div>
                   <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">
-                      Top Speed
+                      Location
                     </p>
-                    <p className="max-lg:text-sm">100 KM/H</p>
+                    <p className="max-lg:text-sm">{bike.location}</p>
                   </div>
                   <div className="flex justify-between border-b-2 py-2">
                     <p className="text-xs text-gray-700 lg:text-sm">
                       Registered In
                     </p>
-                    <p className="max-lg:text-sm">Lorem ipsum</p>
+                    <p className="max-lg:text-sm">{bike.registered_in}</p>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
+          }
 
           {/* Add other bike details as needed */}
         </div>
@@ -276,14 +368,17 @@ export default function BuyBike() {
               onSubmit={handleSubmit}
             >
               {BuyBikesConstant.map((item) => (
-                <div
+                <div 
                   className="mb-4 w-full px-4  lg:w-full sm:w-1/2"
                   key={item.name}
                 >
                   {renderField(item)}
                 </div>
               ))}
-
+              <div className='text-base text-green-600 text-center font-semibold sm:ml-5 '>{info}</div>
+            
+              
+ 
               <div className="mx-4 mt-5 w-full">
                 <button
                   className="sm:w-[20%] w-full rounded bg-secondary py-2 font-semibold text-white"
@@ -296,6 +391,7 @@ export default function BuyBike() {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 }

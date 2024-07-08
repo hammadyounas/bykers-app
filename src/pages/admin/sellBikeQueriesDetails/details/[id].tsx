@@ -2,7 +2,7 @@ import SellBikeQueriesDetails from '@/components/pages/Admin/SellBikesQueries/Se
 import GridView from '@/components/ui/GridView'
 import React from 'react'
 
-export default function sellBikeQueriesDetails() {
+export default function SellBikeQueries() {
   return (
     <GridView>
       <SellBikeQueriesDetails />

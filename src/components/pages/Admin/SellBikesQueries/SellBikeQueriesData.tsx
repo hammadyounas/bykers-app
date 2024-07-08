@@ -29,32 +29,33 @@ const SellBikeQueriesData: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchBikes = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bikes/list`, {
-          // params: {
-          //   page: currentPage,
-          //   limit: ITEMS_PER_PAGE,
-          // },
-        });
-        const fetchedBikes: Bike[] = response.data.bikes.map((bike: Bike) => ({
-          ...bike,
-          images: [], // Replace with actual image loading logic
-        }));
-        console.log(fetchedBikes);
+  const fetchBikes = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bikes/list`, {
+        // params: {
+        //   page: currentPage,
+        //   limit: ITEMS_PER_PAGE,
+        // },
+      });
+      const fetchedBikes: Bike[] = response.data.bikes.map((bike: Bike) => ({
+        ...bike,
+        images: [], // Replace with actual image loading logic
+      }));
+      console.log(fetchedBikes);
 
-        setBikes(fetchedBikes);
-        setStatusDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
-        setActionDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
-      } catch (error) {
-        console.error('Error fetching bikes:', error);
-        toast.error('Failed to fetch bikes');
-      } finally {
-        setLoading(false);
-      }
-    };
+      setBikes(fetchedBikes);
+      setStatusDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
+      setActionDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
+    } catch (error) {
+      console.error('Error fetching bikes:', error);
+      toast.error('Failed to fetch bikes');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
 
     fetchBikes();
   }, [currentPage]);
@@ -91,14 +92,16 @@ const SellBikeQueriesData: React.FC = () => {
       if (response.status === 200) {
         setBikes(prevBikes => {
           const updatedBikes = [...prevBikes];
-          if (updatedBikes[index]) { // Check if updatedBikes[index] is defined
+          // Check if updatedBikes[index] is defined
+          if (updatedBikes[index] !== undefined) {
             updatedBikes[index].approved = updatedApprovedStatus;
           } else {
             toast.error('Bike not found');
           }
           return updatedBikes;
         });
-        toast.success('Bike approved successfully!');
+        fetchBikes();
+        // toast.success('Bike approved successfully!');
       } else {
         toast.error('Failed to approve bike');
       }
@@ -107,6 +110,7 @@ const SellBikeQueriesData: React.FC = () => {
       toast.error('Failed to approve bike');
     }
   };
+  
 
   const handleItemClick = (bikeId: string) => {
     router.push(`/admin/sellBikeQueriesDetails/details/${bikeId}`);

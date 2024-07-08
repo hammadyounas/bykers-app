@@ -116,7 +116,7 @@ export default function BrowseByType() {
       >
         {filteredBikes.length === 0 && (
           <div className={'text-center text-lg font-bold text-red-600'}>
-            No bikes found
+            currently no bike available for sale.
           </div>
         ) }
         {filteredBikes.map((bike, index) => (
@@ -145,7 +145,7 @@ export default function BrowseByType() {
                   </div>
                   <div className="text-center font-bold">
                     <h2>{bike.title}</h2>
-                    <p className="text-red-600">{bike.selling_price}</p>
+                    <p className="text-red-600">${bike.selling_price}</p>
                   </div>
                 </div>
               

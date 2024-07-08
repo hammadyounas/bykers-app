@@ -35,6 +35,7 @@ export default function BuyBike() {
   const router = useRouter();
   const { id } = router.query; 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [info, setInfo] = useState('');
   const [bike, setBike] = useState<BikeDetailsProps>({ // Initialize with an empty object
     id: '',
     _id: '',
@@ -164,9 +165,10 @@ export default function BuyBike() {
 
       if (response.ok) {
         const responseData = await response.json();
-        toast.success(`Interest submitted successfully!`, {
-          position: 'top-center',
-        });
+        setInfo('Interest submitted successfully!');
+        // toast.success(`Interest submitted successfully!`, {
+        //   position: 'top-center',
+        // });
         setFormData({
           name: '',
           email: '',
@@ -239,7 +241,7 @@ export default function BuyBike() {
   return (
     <>
     <div className='lg:pt-32 sm:pt-20 pt-10'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="flex max-lg:flex-col w-full justify-between xl:min-h-[90vh] 2xl:min-h-[95vh] xl:px-20 lg:px-10 px-5">
         <div className="mx-auto flex flex-col max-md:pt-20 max-lg:flex-col xl:w-[60%] lg:w-[70%] w-full">
           {/* Display bike details */}
@@ -373,6 +375,9 @@ export default function BuyBike() {
                   {renderField(item)}
                 </div>
               ))}
+              <div className='text-base text-green-600 text-center font-semibold sm:ml-5 '>{info}</div>
+            
+              
  
               <div className="mx-4 mt-5 w-full">
                 <button

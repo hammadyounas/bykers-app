@@ -28,10 +28,10 @@ export default function BrowseByType() {
       setLoading(true);
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bikes`, {
-          params: {
-            page: 1,
-            limit: 10,
-          },
+          // params: {
+          //   page: 1,
+          //   limit: 10,
+          // },
         });
         const fetchedBikes = response.data.bikes;
 

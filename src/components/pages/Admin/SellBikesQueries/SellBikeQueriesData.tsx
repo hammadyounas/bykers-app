@@ -4,7 +4,7 @@ import axios from 'axios';
 import PaginationUI from '@/components/ui/PaginationUI';
 import { toast, ToastContainer } from 'react-toastify';
 
-const ITEMS_PER_PAGE = 8;
+
 
 interface Bike {
   _id: string;
@@ -29,32 +29,35 @@ const SellBikeQueriesData: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const fetchBikes = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bikes/list`, {
-        params: {
-          page: 1,
-          limit: 10,
-        },
-      });
-      const fetchedBikes: Bike[] = response.data.bikes.map((bike: Bike) => ({
-        ...bike,
-        images: [], // Replace with actual image loading logic
-      }));
-      setBikes(fetchedBikes);
-      setStatusDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
-      setActionDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
-    } catch (error) {
-      console.error('Error fetching bikes:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchBikes = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bikes/list`, {
+          // params: {
+          //   page: currentPage,
+          //   limit: ITEMS_PER_PAGE,
+          // },
+        });
+        const fetchedBikes: Bike[] = response.data.bikes.map((bike: Bike) => ({
+          ...bike,
+          images: [], // Replace with actual image loading logic
+        }));
+        console.log(fetchedBikes);
+
+        setBikes(fetchedBikes);
+        setStatusDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
+        setActionDropdownsVisible(new Array<boolean>(fetchedBikes.length).fill(false));
+      } catch (error) {
+        console.error('Error fetching bikes:', error);
+        toast.error('Failed to fetch bikes');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchBikes();
-  }, []);
+  }, [currentPage]);
 
   const toggleStatusDropdown = (index: number) => {
     setStatusDropdownsVisible(prev => {
@@ -72,9 +75,12 @@ const SellBikeQueriesData: React.FC = () => {
     });
   };
 
-  const handleStatusChange = async (bikeId: string, index?: number, newStatus?: string) => {
+  const handleStatusChange = async (bikeId: string, index: number, newStatus: string) => {
     try {
-      if (!newStatus || index === undefined) return; // Exit early if newStatus is undefined or index is undefined
+      if (index < 0 || index >= bikes.length) {
+        toast.error('Invalid index');
+        return;
+      }
   
       // Update bike approval status based on newStatus
       const isApproved = newStatus === 'Approved';
@@ -85,29 +91,35 @@ const SellBikeQueriesData: React.FC = () => {
       if (response.status === 200) {
         setBikes(prevBikes => {
           const updatedBikes = [...prevBikes];
-          if (!updatedBikes[index]) {
-            toast.error('Not updated!');
-          } else { // Ensure index is defined here
-
+          if (updatedBikes[index]) { // Check if updatedBikes[index] is defined
             updatedBikes[index].approved = updatedApprovedStatus;
+          } else {
+            toast.error('Bike not found');
           }
           return updatedBikes;
         });
         toast.success('Bike approved successfully!');
-        fetchBikes();
+      } else {
+        toast.error('Failed to approve bike');
       }
     } catch (error) {
       console.error('Error approving bike:', error);
-      // Handle error state or notification here
+      toast.error('Failed to approve bike');
     }
   };
 
   const handleItemClick = (bikeId: string) => {
     router.push(`/admin/sellBikeQueriesDetails/details/${bikeId}`);
   };
+  const ITEMS_PER_PAGE = 10; // Adjusted to display 10 items per page
 
+  // Calculate pagination
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = currentPage * ITEMS_PER_PAGE;
+  const currentData = bikes.slice(startIndex, endIndex);
+
+  // Calculate total pages
   const totalPages = Math.ceil(bikes.length / ITEMS_PER_PAGE);
-  const currentData = bikes.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   if (loading) {
     return (

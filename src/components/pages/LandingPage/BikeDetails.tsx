@@ -144,7 +144,7 @@ const BikeDetailsPage: React.FC<BikeDetailsProps> = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: Math.min(1, bike.images.length),
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -283,7 +283,7 @@ const BikeDetailsPage: React.FC<BikeDetailsProps> = () => {
               </div>
               <div className="relative ml-auto w-[100%] max-lg:mt-5 lg:w-[50%]">
                 <Slider ref={sliderRef} {...settings}>
-                  {bike?.images.map((image: any, index: any) => (
+                  {bike && bike.images?.map((image: any, index: any) => (
                     <div key={index} className=" h-[55vh] max-[425px]:h-[35vh] sm:h-[40vh]">
                       <img src={image} alt={`Slide ${index}`} className="size-full" />
                     </div>

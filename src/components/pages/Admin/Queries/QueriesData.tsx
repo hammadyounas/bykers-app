@@ -16,7 +16,8 @@ interface Query {
 
 const QueriesData: React.FC = () => {
   const [query, setQueries] = useState<Query[]>([]);
-  const [dropdownsVisibleStatus, setDropdownsVisibleStatus] = useState<boolean[]>([]);
+  const [statusDropdownsVisible, setStatusDropdownsVisible] = useState<boolean[]>([]);
+  const [actionDropdownsVisible, setActionDropdownsVisible] = useState<boolean[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   // const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
@@ -38,7 +39,8 @@ const QueriesData: React.FC = () => {
       });
       const fetchedQueries: Query[] = response.data; // Assuming response directly provides an array of queries
       setQueries(fetchedQueries);
-      setDropdownsVisibleStatus(new Array<boolean>(fetchedQueries.length).fill(false));
+      setActionDropdownsVisible(new Array<boolean>(fetchedQueries.length).fill(false));
+      setStatusDropdownsVisible(new Array<boolean>(fetchedQueries.length).fill(false));
     } catch (error) {
       console.error('Error fetching queries:', error);
     } finally {
@@ -47,7 +49,15 @@ const QueriesData: React.FC = () => {
   };
 
   const toggleDropdownStatus = (index: number) => {
-    setDropdownsVisibleStatus(prev => {
+    setStatusDropdownsVisible(prev => {
+      const newDropdownsVisibleStatus = [...prev];
+      newDropdownsVisibleStatus[index] = !prev[index];
+      return newDropdownsVisibleStatus;
+    });
+  };
+
+  const toggleDropdownAction = (index: number) => {
+    setActionDropdownsVisible(prev => {
       const newDropdownsVisibleStatus = [...prev];
       newDropdownsVisibleStatus[index] = !prev[index];
       return newDropdownsVisibleStatus;
@@ -131,7 +141,7 @@ const QueriesData: React.FC = () => {
               <li className={`w-1/6 relative text-center lg:py-6 px-1 py-2 font-semibold ${query.status === 'Resolved' ? 'text-green-600' : 'text-orange-600'}`} onClick={() => toggleDropdownStatus(index)}>
                 {query.status === 'pending for contact'? 'Pending' : 'Approved'}
                 <i className="fa-solid fa-chevron-down ml-3 relative"></i>
-                {dropdownsVisibleStatus[index] && (
+                {statusDropdownsVisible[index] && (
                   <ul className="absolute w-32 left-0 mt-2 font-normal text-gray-800 bg-white border border-gray-300 rounded shadow-lg z-10">
                     <li className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(query._id, index, 'Resolved')}>
                       Resolved
@@ -148,8 +158,8 @@ const QueriesData: React.FC = () => {
               </li>
             </div>
             <li className="relative w-[10%] lg:py-6 px-1 py-2 cursor-pointer text-center">
-              <i className="fa-solid fa-ellipsis-vertical lg:text-lg"></i>
-              {dropdownsVisibleStatus[index] && (
+              <i className="fa-solid fa-ellipsis-vertical lg:text-lg" onClick={() => toggleDropdownAction(index)}></i>
+              {actionDropdownsVisible[index] && (
                 <ul className="absolute w-32 right-0 mt-2 bg-white border border-gray-300 rounded shadow-lg z-10">
                   <li className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer">
                     <i className="fa-regular fa-eye mr-2"></i> View

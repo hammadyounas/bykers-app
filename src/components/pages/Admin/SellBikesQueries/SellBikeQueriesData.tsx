@@ -76,7 +76,7 @@ const SellBikeQueriesData: React.FC = () => {
     });
   };
 
-  const handleStatusChange = async (bikeId: string, index: number, newStatus: string) => {
+  const handleStatusChange = async (bikeId: string, index: number) => {
     try {
       if (index < 0 || index >= bikes.length) {
         toast.error('Invalid index');
@@ -84,22 +84,24 @@ const SellBikeQueriesData: React.FC = () => {
       }
   
       // Update bike approval status based on newStatus
-      const isApproved = newStatus === 'Approved';
-      const updatedApprovedStatus = isApproved ? true : false;
+      // const isApproved = newStatus === 'Approved';
+      // const updatedApprovedStatus = isApproved ? true : false;
   
       // Patch request to update bike approval status
       const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/approve/${bikeId}`);
       if (response.status === 200) {
-        setBikes(prevBikes => {
-          const updatedBikes = [...prevBikes];
-          // Use optional chaining to safely access and update 'approved' property
-          if (updatedBikes[index]?.approved !== undefined) {
-            updatedBikes[index].approved = updatedApprovedStatus;
-          } else {
-            toast.error('Bike not found');
-          }
-          return updatedBikes;
-        });
+        toast.success('Bike approved successfully!');
+        console.log('Bikes approved')
+        // setBikes(prevBikes => {
+        //   const updatedBikes = [...prevBikes];
+        //   // Use optional chaining to safely access and update 'approved' property
+        //   if (updatedBikes[index]?.approved !== undefined) {
+        //     updatedBikes[index].approved = updatedApprovedStatus;
+        //   } else {
+        //     toast.error('Bike not found');
+        //   }
+        //   return updatedBikes;
+        // });
         fetchBikes();
         // toast.success('Bike approved successfully!');
       } else {
@@ -175,7 +177,7 @@ const SellBikeQueriesData: React.FC = () => {
               <i className="fa-solid fa-chevron-down ml-3 relative"></i>
               {statusDropdownsVisible[index] && (
                 <ul className="absolute w-32 left-0 top-14 font-normal text-gray-800 bg-white border border-gray-300 rounded shadow-lg z-10">
-                  <li className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(bike._id, index, 'Approved')}>
+                  <li className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(bike._id, index )}>
                     Approved
                   </li>
                   {/* <li className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(bike._id, index, 'Pending')}>

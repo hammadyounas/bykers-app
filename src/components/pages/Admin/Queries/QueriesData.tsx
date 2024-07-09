@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PaginationUI from '@/components/ui/PaginationUI';
+// import { useRouter } from 'next/router';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -12,6 +13,7 @@ interface Query {
   phone_number: string;
   description: string;
   status?: string;
+  interested_in_test_ride: boolean;
 }
 
 const QueriesData: React.FC = () => {
@@ -20,9 +22,6 @@ const QueriesData: React.FC = () => {
   const [actionDropdownsVisible, setActionDropdownsVisible] = useState<boolean[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  // const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
-  // const [editedStatusIndex, setEditedStatusIndex] = useState<number | null>(null);
-  // const [localData, setLocalData] = useState<any[]>(queriesData as Queries[]); // Assuming queriesData is defined elsewhere
 
   useEffect(() => {
     fetchQueries(); // Initial fetch when component mounts
@@ -66,34 +65,38 @@ const QueriesData: React.FC = () => {
 
   const totalPages = Math.ceil(query.length / ITEMS_PER_PAGE);
   const currentData = query.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-
-  const handleStatusChange = async (bikeId: string, index?: number, newStatus?: string) => {
+  
+  const handleStatusChange = async (inquiryId: string, newStatus?: string) => {
+    // if (!newStatus) return; // Exit early if newStatus is undefined
+  
     try {
-      if (!newStatus) return; // Exit early if newStatus is undefined
-
-      // Update bike approval status based on newStatus
-      const isResolved = newStatus === 'Resolved';
-      const updatedApprovedStatus = isResolved ? true : false;
-
-      // Patch request to update bike approval status
-      const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/inquiry/${bikeId}`);
-      console.log(response, updatedApprovedStatus, index)
-      // if (response.status === 200) {
-      //   setQueries(prevBikes => {
-      //     const updatedQueries = [...prevBikes];
-      //     if (index !== undefined && updatedQueries[index]) {
-      //       updatedQueries[index].status? = updatedApprovedStatus;
-      //     }
-      //     return updatedQueries;
-      //   });
-      //   fetchQueries();
-      // }
+      // Patch request to update inquiry status
+      const response = await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/inquiry/${inquiryId}`,
+        { status: newStatus } // Send the new status in the request body
+      );
+  
+      if (response.status === 200) {
+        // Update local state after successful API response
+        console.log("Query status updated successfully");
+        fetchQueries(); 
+        // setQueries(prevQueries => prevQueries.map((query, idx) => {
+        //   if (idx === index) {
+        //     return { ...query, status: newStatus }; // Update status for the specific query
+        //   }
+        //   return query; // Return unchanged query for other indices
+        // }));
+      } else {
+        console.error('Failed to update inquiry status:', response.data);
+        // Handle error state or notification here
+      }
     } catch (error) {
-      console.error('Error approving bike:', error);
+      console.error('Error updating inquiry status:', error);
       // Handle error state or notification here
     }
   };
-
+  
+  
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page); // Update current page and fetch new data
@@ -107,6 +110,10 @@ const QueriesData: React.FC = () => {
       </div>
     );
   }
+
+  // const handleItemClick = (bikeId: string) => {
+  //   router.push(`/admin/buyBikeQueries/details/${bikeId}`);
+  // };
 
   return (
     <div className="sm:w-full w-full mx-auto overflow-x-auto">
@@ -133,20 +140,22 @@ const QueriesData: React.FC = () => {
         )}
         {currentData.map((query, index) => (
           <ul key={query._id} className="flex items-center sm:justify-center border-t justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer">
-            <div className="flex w-full items-center justify-between">
+            <div className="flex w-full items-center justify-between"
+              // onClick={() => handleItemClick(query._id)}
+              >
               <li className="w-1/6 lg:py-6 px-1 py-2">{query.name}</li>
               <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2">{query.email}</li>
               <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2">{query.phone_number}</li>
               <li className="sm:w-1/3 w-1/2 lg:py-6 px-1 py-2">{query.description}</li>
               <li className={`w-1/6 relative text-center lg:py-6 px-1 py-2 font-semibold ${query.status === 'Resolved' ? 'text-green-600' : 'text-orange-600'}`} onClick={() => toggleDropdownStatus(index)}>
-                {query.status === 'pending for contact'? 'Pending' : 'Approved'}
+                {query.status === 'pending for contact'? 'Pending' : 'Resolved'}
                 <i className="fa-solid fa-chevron-down ml-3 relative"></i>
                 {statusDropdownsVisible[index] && (
                   <ul className="absolute w-32 left-0 mt-2 font-normal text-gray-800 bg-white border border-gray-300 rounded shadow-lg z-10">
-                    <li className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(query._id, index, 'Resolved')}>
+                    <li className="px-6 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(query._id, 'Resolved')}>
                       Resolved
                     </li>
-                    <li className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(query._id, index, 'Pending')}>
+                    <li className="px-8 py-2 hover:bg-secondary-light hover:text-white cursor-pointer" onClick={() => handleStatusChange(query._id, 'pending for contact')}>
                       Pending
                     </li>
                     {/* Add other options here */}
@@ -154,7 +163,7 @@ const QueriesData: React.FC = () => {
                 )}
               </li>
               <li className={`w-1/6 text-center lg:py-6 px-1 py-2 font-semibold ${query.status === 'pending for contact' ? 'text-green-600' : 'text-red-600'}`}>
-                {query.status === 'pending for contact' ? 'Yes' : 'No'}
+                {query.interested_in_test_ride === true ? 'Yes' : 'No'}
               </li>
             </div>
             <li className="relative w-[10%] lg:py-6 px-1 py-2 cursor-pointer text-center">

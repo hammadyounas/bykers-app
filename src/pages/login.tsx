@@ -1,4 +1,3 @@
-import Navbar from '@/components/pages/Header/Navbar'
 import Login from '@/components/pages/LoginPage/Login'
 import React from 'react'
 

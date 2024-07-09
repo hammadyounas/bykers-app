@@ -29,6 +29,11 @@ export default function Footer() {
         <li className="cursor-pointer text-xs hover:text-red-600 hover:underline lg:text-sm">
           Privacy Policy
         </li>
+        <a href='/login'>
+        <li className="cursor-pointer text-xs hover:text-red-600 hover:underline lg:text-sm">
+          Login
+        </li>
+        </a>
       </ul>
     </div>
   );

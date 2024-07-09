@@ -115,8 +115,8 @@ export default function BrowseByType() {
         className={'grid grid-cols-1 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3 '}
       >
         {filteredBikes.length === 0 && (
-          <div className={'text-center text-lg font-bold text-red-600'}>
-            currently no bike available for sale.
+          <div className={'text-center text-lg font-bold text-red-600 h-[50vh]'}>
+            Currently no bike available for sale.
           </div>
         ) }
         {filteredBikes.map((bike, index) => (

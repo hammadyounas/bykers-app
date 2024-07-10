@@ -60,11 +60,11 @@ export default function Navbar() {
                   </li>
                 </Link>
 
-                {/* <Link href="/admin/viewBikes">
+                <Link href="/blog">
                   <li className="flex cursor-pointer rounded-md max-lg:ml-2 max-lg:w-full max-lg:items-center max-lg:justify-center max-lg:py-2 max-lg:hover:bg-secondary max-lg:hover:text-white sm:mr-5 lg:hover:text-red-600">
-                    Admin
+                    Blogs
                   </li>
-                </Link> */}
+                </Link>
               </ul>
             </div>
           </div>

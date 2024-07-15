@@ -71,7 +71,7 @@ const QueriesData: React.FC = () => {
   
     try {
       // Patch request to update inquiry status
-      const response = await axios.patch(
+      const response = await axios.put(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/inquiry/${inquiryId}`,
         { status: newStatus } // Send the new status in the request body
       );

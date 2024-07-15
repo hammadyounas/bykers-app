@@ -88,7 +88,7 @@ const SellBikeQueriesData: React.FC = () => {
       // const updatedApprovedStatus = isApproved ? true : false;
   
       // Patch request to update bike approval status
-      const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/approve/${bikeId}`);
+      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/approve/${bikeId}`);
       if (response.status === 200) {
         toast.success('Bike approved successfully!');
         console.log('Bikes approved')

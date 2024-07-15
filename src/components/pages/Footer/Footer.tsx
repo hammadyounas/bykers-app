@@ -14,9 +14,11 @@ export default function Footer() {
         </h1>
       </div>
       <ul className="flex w-full justify-around sm:w-96">
-        <li className="cursor-pointer text-xs hover:text-red-600 hover:underline lg:text-sm">
-          Home
+        <a href="/login">
+        <li  className="cursor-pointer text-xs hover:text-red-600 hover:underline lg:text-sm">
+          Admin
         </li>
+        </a>
         <li className="cursor-pointer text-xs hover:text-red-600 hover:underline lg:text-sm">
           About
         </li>
@@ -29,9 +31,9 @@ export default function Footer() {
         <li className="cursor-pointer text-xs hover:text-red-600 hover:underline lg:text-sm">
           Privacy Policy
         </li>
-        <a href='/login'>
+        <a href='/'>
         <li className="cursor-pointer text-xs hover:text-red-600 hover:underline lg:text-sm">
-          Login
+          Home
         </li>
         </a>
       </ul>

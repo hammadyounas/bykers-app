@@ -9,12 +9,14 @@ import FirstSection from '@/components/pages/LandingPage/FirstSection';
 interface SearchParams {
   model: string;
   condition: string;
-  // min_price?: string;
-  // max_price?: string;
+  min_price?: number; // Optional since initially undefined
+  max_price?: number; // Optional since initially undefined
 }
 
 const Index: React.FC = () => {
-  const [searchParams, setSearchParams] = useState<SearchParams>({ model: '', condition: '' });
+  const [searchParams, setSearchParams] = useState<SearchParams>({ model: '', condition: '', 
+   min_price: undefined, max_price: undefined
+  });
 
   const updateSearchParams = (params: Partial<SearchParams>) => {
     setSearchParams((prevParams) => ({ ...prevParams, ...params }));
@@ -26,9 +28,11 @@ const Index: React.FC = () => {
       <FirstSection setSearchParams={updateSearchParams} />
       <FeaturedBike />
       <CursiosityTakesYou />
-      <BrowseByType model={searchParams.model} condition={searchParams.condition}
-        // min_price={searchParams.min_price} 
-        // max_price={searchParams.max_price} 
+      <BrowseByType
+        model={searchParams.model}
+        condition={searchParams.condition}
+        min_price={searchParams.min_price}
+        max_price={searchParams.max_price}
       />
       <Footer />
     </div>

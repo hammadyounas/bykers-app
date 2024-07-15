@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 interface SearchParams {
   model: string;
   condition: string;
-  // min_price?: string;
-  // max_price?: string;
+  min_price?: number;
+  max_price?: number;
 }
 
 interface FirstSectionProps {
@@ -14,12 +14,17 @@ interface FirstSectionProps {
 const FirstSection: React.FC<FirstSectionProps> = ({ setSearchParams }) => {
   const [model, setModel] = useState('');
   const [condition, setCondition] = useState('');
-  // const [minPrice, setMinPrice] = useState('');
-  // const [maxPrice, setMaxPrice] = useState('');
+  const [min_price, setMinPrice] = useState('');
+  const [max_price, setMaxPrice] = useState('');
 
   const handleSearchClick = () => {
-    setSearchParams({ model, condition });
-    // setSearchParams({ model, min_price: minPrice, max_price: maxPrice });
+    const params: Partial<SearchParams> = {
+      model,
+      condition,
+      min_price: min_price ? parseFloat(min_price) : undefined,
+      max_price: max_price ? parseFloat(max_price) : undefined,
+    };
+    setSearchParams(params);
   };
 
   return (
@@ -48,7 +53,7 @@ const FirstSection: React.FC<FirstSectionProps> = ({ setSearchParams }) => {
 
       <div
         className={
-          'mx-auto mt-10 flex w-[90%] justify-around bg-gray-200 py-4 shadow-lg shadow-gray-700 max-lg:flex-col max-sm:text-sm sm:-mt-10 sm:w-[90%] lg:w-[100%] lg:px-5 xl:w-[90%] 2xl:w-[80%]'
+          'mx-auto mt-10 flex w-[90%] justify-around bg-gray-200 py-4 shadow-lg shadow-gray-700 max-xl:flex-col max-sm:text-sm sm:-mt-10 sm:w-[90%] lg:w-[70%] lg:px-5 xl:w-[90%] 2xl:w-[80%]'
         }
       >
         <input
@@ -67,21 +72,21 @@ const FirstSection: React.FC<FirstSectionProps> = ({ setSearchParams }) => {
           onChange={(e) => setCondition(e.target.value)}
           className="input-style flex cursor-pointer border-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
         />
+          <input
+            type="text"
+            name="min-price"
+            placeholder="Min Price"
+            value={min_price}
+            onChange={(e) => setMinPrice(e.target.value)}
+            className="input-style flex cursor-pointer border-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
+          />
         <input
           type="text"
           name="max-price"
           placeholder="Max Price"
-          // value={maxPrice}
-          // onChange={(e) => setMaxPrice(e.target.value)}
+          value={max_price}
+          onChange={(e) => setMaxPrice(e.target.value)}
           className="input-style flex cursor-pointer border px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
-        />
-        <input
-          type="text"
-          name="min-price"
-          placeholder="Min Price"
-          // value={minPrice}
-          // onChange={(e) => setMinPrice(e.target.value)}
-          className="input-style flex cursor-pointer border-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
         />
         <a href='/#browse'>
         <button

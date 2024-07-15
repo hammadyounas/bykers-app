@@ -15,9 +15,11 @@ interface Bike {
 interface BrowseByTypeProps {
   model: string;
   condition: string;
+  min_price?: number;
+  max_price?: number;
 }
 
-export default function BrowseByType({ model, condition }: BrowseByTypeProps) {
+export default function BrowseByType({ model, condition, min_price, max_price }: BrowseByTypeProps) {
   const [selectedCategory, setSelectedCategory] = useState('New Bike');
   const [activeLink, setActiveLink] = useState('New Bike'); // Initial active link
   const [bikes, setBikes] = useState<Bike[]>([]);
@@ -33,6 +35,8 @@ export default function BrowseByType({ model, condition }: BrowseByTypeProps) {
             params: {
               model: model,
               condition: condition,
+              min_price: min_price,
+              max_price: max_price,
             },
           });
         } else {
@@ -64,7 +68,7 @@ export default function BrowseByType({ model, condition }: BrowseByTypeProps) {
     };
 
     fetchBikes();
-  }, [model, condition]); // Trigger fetch on model change
+  }, [model, condition, min_price, max_price]); // Trigger fetch on model change
 
   if (loading) {
     return (

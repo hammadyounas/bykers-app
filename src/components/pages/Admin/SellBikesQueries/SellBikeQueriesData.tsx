@@ -137,7 +137,7 @@ const SellBikeQueriesData: React.FC = () => {
 
   return (
     <div className="sm:w-full w-full mx-auto">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="w-full">
         <ul className="flex justify-between border-t items-center mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
           <div className="flex justify-between items-center w-full">

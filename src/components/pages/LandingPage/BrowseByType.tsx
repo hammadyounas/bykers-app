@@ -20,8 +20,8 @@ interface BrowseByTypeProps {
 }
 
 export default function BrowseByType({ model, condition, min_price, max_price }: BrowseByTypeProps) {
-  const [selectedCategory, setSelectedCategory] = useState('New Bike');
-  const [activeLink, setActiveLink] = useState('New Bike'); // Initial active link
+  const [selectedCategory, setSelectedCategory] = useState(condition === 'Used' ? 'Used Bike' : 'New Bike');
+  const [activeLink, setActiveLink] = useState(condition === 'Used' ? 'Used Bike' : 'New Bike'); // Initial active link
   const [bikes, setBikes] = useState<Bike[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -69,6 +69,17 @@ export default function BrowseByType({ model, condition, min_price, max_price }:
 
     fetchBikes();
   }, [model, condition, min_price, max_price]); // Trigger fetch on model change
+
+  useEffect(() => {
+    // Update the selected category based on the condition prop
+    if (condition === 'Used') {
+      setSelectedCategory('Used Bike');
+      setActiveLink('Used Bike');
+    } else {
+      setSelectedCategory('New Bike');
+      setActiveLink('New Bike');
+    }
+  }, [condition]);
 
   if (loading) {
     return (
@@ -132,7 +143,7 @@ export default function BrowseByType({ model, condition, min_price, max_price }:
                   )}
                 </div>
                 <div className="text-center font-bold">
-                  <h2>{bike.name}</h2>
+                  <h2>{bike.title}</h2>
                   <p className="text-red-600">$ {bike.selling_price}</p>
                 </div>
               </div>

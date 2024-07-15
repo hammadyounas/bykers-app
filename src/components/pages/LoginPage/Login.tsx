@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -7,11 +8,20 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    // Check if the session cookie exists and is valid
+    const session = Cookies.get('session');
+    if (session) {
+      router.push('/admin/viewBikes');
+    }
+  }, [router]);
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     // Dummy login validation
     if (username === process.env.NEXT_PUBLIC_ADMIN_USERNAME && password === process.env.NEXT_PUBLIC_ADMIN_USER_PASSWORD) {
-      console.log(username, password);
+      // Set session cookie with a 1-day expiration
+      Cookies.set('session', 'active', { expires: 1 });
       router.push('/admin/viewBikes');
     } else {
       alert('Invalid username or password');

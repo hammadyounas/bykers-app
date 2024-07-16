@@ -121,11 +121,11 @@ const QueriesData: React.FC = () => {
         <ul className="flex justify-between items-center mt-10 lg:text-sm sm:text-[0.6rem] text-[0.5rem] font-semibold text-gray-700">
           <div className="flex justify-between items-center w-full">
             <li className="w-1/6 border-t lg:py-6 py-2 px-1">Name</li>
-            <li className="max-sm:hidden w-1/6 border-t lg:py-6 py-2 px-1">Email</li>
+            <li className="max-sm:hidden w-1/4 border-t lg:py-6 py-2 px-1">Email</li>
             <li className="max-sm:hidden w-1/6 border-t lg:py-6 py-2 px-1">Contact</li>
             <li className="sm:w-1/3 w-1/2 border-t lg:py-6 py-2 px-1">Description</li>
             <li className="w-1/6 border-t lg:py-6 px-1 py-2 text-center">Status</li>
-            <li className="w-1/6 border-t lg:py-6 px-1 py-2 text-center">Free Ride</li>
+            <li className="w-[10%] border-t lg:py-6 px-1 py-2 text-center">Free Ride</li>
           </div>
           <li className="w-[10%] border-t lg:py-6 px-1 py-2 text-center">Action</li>
         </ul>
@@ -139,12 +139,12 @@ const QueriesData: React.FC = () => {
           </div>
         )}
         {currentData.map((query, index) => (
-          <ul key={query._id} className="flex items-center sm:justify-center border-t justify-between lg:text-sm sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer">
+          <ul key={query._id} className="flex items-center sm:justify-center border-t justify-between xl:text-sm lg:text-xs sm:text-[0.6rem] text-[0.5rem] text-gray-900 cursor-pointer">
             <div className="flex w-full items-center justify-between"
               // onClick={() => handleItemClick(query._id)}
               >
               <li className="w-1/6 lg:py-6 px-1 py-2">{query.name}</li>
-              <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2">{query.email}</li>
+              <li className="max-sm:hidden w-1/4 lg:py-6 px-1 py-2">{query.email}</li>
               <li className="max-sm:hidden w-1/6 lg:py-6 px-1 py-2">{query.phone_number}</li>
               <li className="sm:w-1/3 w-1/2 lg:py-6 px-1 py-2">{query.description}</li>
               <li className={`w-1/6 relative text-center lg:py-6 px-1 py-2 font-semibold ${query.status === 'Resolved' ? 'text-green-600' : 'text-orange-600'}`} onClick={() => toggleDropdownStatus(index)}>
@@ -162,7 +162,7 @@ const QueriesData: React.FC = () => {
                   </ul>
                 )}
               </li>
-              <li className={`w-1/6 text-center lg:py-6 px-1 py-2 font-semibold ${query.status === 'pending for contact' ? 'text-green-600' : 'text-red-600'}`}>
+              <li className={`w-[10%] text-center lg:py-6 px-1 py-2 font-semibold ${query.status === 'pending for contact' ? 'text-green-600' : 'text-red-600'}`}>
                 {query.interested_in_test_ride === true ? 'Yes' : 'No'}
               </li>
             </div>

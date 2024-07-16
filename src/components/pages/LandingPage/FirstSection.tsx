@@ -58,13 +58,13 @@ const FirstSection: React.FC<FirstSectionProps> = ({ setSearchParams }) => {
           placeholder="Model"
           value={model}
           onChange={(e) => setModel(e.target.value)}
-          className="input-style flex cursor-pointer border-2 mr-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
+          className="input-style flex cursor-pointer border-2 xl:mr-2 px-2 max-xl:my-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
         />
         <select
           name="condition"
           value={condition}
           onChange={(e) => setCondition(e.target.value)}
-          className="xl:w-[20%] input-style flex cursor-pointer border-2 mx-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
+          className="xl:w-[20%] input-style flex cursor-pointer border-2 xl:mx-2 max-xl:my-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
         >
           <option value="">Select Condition</option>
           <option value="Used">Used</option>
@@ -76,7 +76,7 @@ const FirstSection: React.FC<FirstSectionProps> = ({ setSearchParams }) => {
           placeholder="Min Price"
           value={min_price}
           onChange={(e) => setMinPrice(e.target.value)}
-          className="xl:w-[20%] input-style flex cursor-pointer border-2 mx-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
+          className="xl:w-[20%] input-style flex cursor-pointer border-2 xl:mx-2 max-xl:my-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
         />
         <input
           type="text"
@@ -84,11 +84,11 @@ const FirstSection: React.FC<FirstSectionProps> = ({ setSearchParams }) => {
           placeholder="Max Price"
           value={max_price}
           onChange={(e) => setMaxPrice(e.target.value)}
-          className="xl:w-[20%] input-style flex cursor-pointer border mx-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
+          className="xl:w-[20%] input-style flex cursor-pointer border xl:mx-2 max-xl:my-2 px-2 font-semibold max-lg:mx-3 max-lg:mt-2 max-lg:items-center max-lg:justify-center max-lg:hover:bg-secondary max-lg:hover:text-white max-sm:w-[90%] max-sm:py-1 sm:py-3 lg:mr-3 lg:hover:text-secondary"
         />
-        <a href='/#browse' className='flex justify-center items-center ml-2' >
+        <a href='/#browse' className='flex justify-center items-center xl:ml-2' >
         <button
-          className={'bg-secondary-light px-4 py-2 font-semibold text-white max-lg:mx-3 max-lg:mt-2'}
+          className={'bg-secondary-light px-4 py-2 max-xl:my-2 font-semibold text-white max-lg:mx-3 max-lg:mt-2'}
           onClick={handleSearchClick}
         >
           Search

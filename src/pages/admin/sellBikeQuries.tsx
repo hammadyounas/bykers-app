@@ -1,8 +1,9 @@
 import GridView from '@/components/ui/GridView'
 import React from 'react'
 import SellBikesQueries from '@/components/pages/Admin/SellBikesQueries/SellBikesQueries'
+import withAuth from '@/components/pages/hoc/withAuth'
 
-export default function sellBikeQuries() {
+const sellBikeQuries = () =>{ 
   return (
     <GridView>
       <div>
@@ -11,3 +12,5 @@ export default function sellBikeQuries() {
     </GridView>
   )
 }
+
+export default withAuth(sellBikeQuries);

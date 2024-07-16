@@ -169,9 +169,6 @@ export default function BuyBike() {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/buy`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           ...formData,
           bike_id: id,

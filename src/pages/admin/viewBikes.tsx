@@ -2,14 +2,14 @@ import React from "react";
 
 import ViewBikes from "@/components/pages/Admin/ViewBikes/ViewBikes";
 import GridView from "@/components/ui/GridView";
+import withAuth from "@/components/pages/hoc/withAuth";
 
-export default function viewBikes() {
+const viewBikes = () => {
   return (
     <GridView>
-        <ViewBikes />
-      {/* <div className="-mt-10">
-        <Footer />
-      </div> */}
+      <ViewBikes />
     </GridView>
   );
-}
+};
+
+export default withAuth(viewBikes);

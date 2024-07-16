@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 export default function Title({ title }: { title: string }) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const router = useRouter();
 
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
+  const logout = () => {
+    Cookies.remove('session');
+    router.push('/');
+    
+  }
 
   return (
     <div className='w-[100%] max mx-auto bg-white border-b shadow-md lg:py-6 py-4 lg:px-10 px-2 flex justify-between items-center z-10'>
@@ -24,7 +32,7 @@ export default function Title({ title }: { title: string }) {
           <div className='absolute right-0 mt-12 w-48 bg-white border border-gray-300 rounded shadow-lg z-20'>
             <ul className='py-1'>
               <li className='px-4 py-2 hover:bg-secondary hover:text-white cursor-pointer'>Profile</li>
-              <li className='px-4 py-2 hover:bg-secondary hover:text-white cursor-pointer'>Logout</li>
+              <a  onClick={logout}><li className='px-4 py-2 hover:bg-secondary hover:text-white cursor-pointer'>Logout</li></a>
             </ul>
           </div>
         )}

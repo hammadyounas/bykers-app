@@ -11,6 +11,7 @@ export default function Login() {
   useEffect(() => {
     // Check if the session cookie exists and is valid
     const session = Cookies.get('session');
+    
     if (session) {
       router.push('/admin/viewBikes');
     }
